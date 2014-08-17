@@ -9,4 +9,8 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     redirect_to root_url
   end
+
+  def show
+    @user = current_user
+  end
 end
