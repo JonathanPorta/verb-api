@@ -1,12 +1,6 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
 
-  # GET /messages
-  # GET /messages.json
-  def index
-    @messages = Message.all
-  end
-
   # GET /messages/1
   # GET /messages/1.json
   def show
@@ -14,11 +8,23 @@ class MessagesController < ApplicationController
 
   # GET /messages/new
   def new
-    @message = Message.new
+    @message = Message.new sender_id: current_user.id
   end
 
   # GET /messages/1/edit
   def edit
+  end
+
+  # GET /messages/sent
+  # GET /messages/sent.json
+  def sent
+    @messages = Message.where sender_id: current_user.id
+  end
+
+  # GET /messages/received
+  # GET /messages/received.json
+  def received
+    @messages = Message.where recipient_id: current_user.id
   end
 
   # POST /messages

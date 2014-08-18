@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :messages
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -12,6 +11,11 @@ Rails.application.routes.draw do
   match 'signout', to: 'sessions#destroy', as: 'signout', via: [:get, :post]
 
   get 'user' => 'sessions#show', format: 'json'
+
+  get 'messages/sent' => 'messages#sent'
+  get 'messages/received' => 'messages#received'
+
+  resources :messages
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
