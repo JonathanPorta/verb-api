@@ -3,6 +3,12 @@ Verb API
 
 [![Build Status](https://travis-ci.org/JonathanPorta/verb-api.svg?branch=master)](https://travis-ci.org/JonathanPorta/verb-api)
 
+Server       | Watch/LiveReload/Tests/Lint
+-------------|----------------------------
+`$ rails s`  | `$ guard`
+
+When using the `$ guard` file-watcher, installing [LiveReload Extension](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei) for Chrome will automatically refresh the browser on file-changes.
+
 First-time install
 ------------------
 
