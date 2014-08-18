@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   match 'auth/failure', to: redirect('/'), via: [:get, :post]
   match 'signout', to: 'sessions#destroy', as: 'signout', via: [:get, :post]
 
-  get 'user' => 'sessions#show'
+  get 'user' => 'sessions#show', format: 'json'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
