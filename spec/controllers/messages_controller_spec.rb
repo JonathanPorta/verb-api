@@ -36,8 +36,16 @@ RSpec.describe MessagesController, :type => :controller do
   # MessagesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "GET index" do
-    it "assigns all messages as @messages" do
+  describe "GET sent" do
+    it "assigns sent messages as @messages" do
+      message = Message.create! valid_attributes
+      get :index, {}, valid_session
+      expect(assigns(:messages)).to eq([message])
+    end
+  end
+
+  describe "GET received" do
+    it "assigns received messages as @messages" do
       message = Message.create! valid_attributes
       get :index, {}, valid_session
       expect(assigns(:messages)).to eq([message])
