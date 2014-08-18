@@ -1,6 +1,11 @@
 Verb API
 ======
 
+Server       | Watch/LiveReload/Tests/Lint
+-------------|----------------------------
+`$ rails s`  | `$ guard`
+
+When using the `$ guard` file-watcher, installing [LiveReload Extension](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei) for Chrome will automatically refresh the browser on file-changes.
 
 First-time install
 ------------------
@@ -15,6 +20,6 @@ Then install the application:
 ```bash
 bundle install # install dependencies
 bundle exec rake db:setup # setup the database
-bundle exec rails server # start the server 
+bundle exec rails server # start the server
 # visit http://localhost:300
 ```
