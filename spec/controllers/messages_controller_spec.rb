@@ -23,6 +23,13 @@ RSpec.describe MessagesController, :type => :controller do
   # This should return the minimal set of attributes required to create a valid
   # Message. As you add validations to Message, be sure to
   # adjust the attributes here as well.
+
+  before :each do
+    @user = FactoryGirl.create :user
+    request.session[:user_id] = @user.id
+    # TODO: Make some peoples message each other.
+  end
+
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
   }
