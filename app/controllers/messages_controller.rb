@@ -18,19 +18,19 @@ class MessagesController < ApplicationController
   # GET /messages/sent
   # GET /messages/sent.json
   def sent
-    @messages = Message.where sender_id: current_user.id
+    @messages = Message.sent_by current_user
   end
 
   # GET /messages/received
   # GET /messages/received.json
   def received
-    @messages = Message.where recipient_id: current_user.id
+    @messages = Message.sent_to current_user
   end
 
   # POST /messages
   # POST /messages.json
   def create
-    @message = Message.new(message_params)
+    @message = Message.new message_params
 
     respond_to do |format|
       if @message.save
