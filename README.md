@@ -1,6 +1,8 @@
 Verb API
 ======
 
+[![Build Status](https://travis-ci.org/JonathanPorta/verb-api.svg?branch=master)](https://travis-ci.org/JonathanPorta/verb-api)
+
 Server       | Watch/LiveReload/Tests/Lint
 -------------|----------------------------
 `$ rails s`  | `$ guard`
