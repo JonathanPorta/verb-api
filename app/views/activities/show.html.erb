@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @activity.user_id %>
+</p>
+
+<p>
+  <strong>Message:</strong>
+  <%= @activity.message_id %>
+</p>
+
+<p>
+  <strong>Acknowledged at:</strong>
+  <%= @activity.acknowledged_at %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @activity.body %>
+</p>
+
+<%= link_to 'Edit', edit_activity_path(@activity) %> |
+<%= link_to 'Back', activities_path %>
