@@ -13,5 +13,6 @@ class Message < ActiveRecord::Base
   private
     def create_activity_entries
       # TODO Create activities for each user.
+      Activity.activities_for_message(self)
     end
 end
