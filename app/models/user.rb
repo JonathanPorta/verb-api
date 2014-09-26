@@ -1,4 +1,9 @@
 class User < ActiveRecord::Base
+
+  has_many :activities
+  has_many :messages, through: :activities
+  # has_many :sent_messages, ->{ where activities: { type: 'sent' } }, through: :activities
+
   def self.from_omniauth(auth)
     where(facebook_id: auth.uid ).first_or_initialize.tap do |user|
       user.facebook_id = auth.uid
@@ -9,7 +14,7 @@ class User < ActiveRecord::Base
       user.first_name = auth.info.first_name
       user.last_name = auth.info.last_name
       user.birthday = auth.extra.raw_info.birthday
-      
+
       user.save!
     end
   end
