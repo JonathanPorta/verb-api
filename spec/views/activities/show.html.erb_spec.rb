@@ -5,7 +5,7 @@ RSpec.describe "activities/show", :type => :view do
     @activity = assign(:activity, Activity.create!(
       :user_id => 1,
       :message_id => 2,
-      :body => "MyText"
+      :type => "MyText"
     ))
   end
 

@@ -6,7 +6,7 @@
       <th>User</th>
       <th>Message</th>
       <th>Acknowledged at</th>
-      <th>Body</th>
+      <th>Type</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,7 +17,7 @@
         <td><%= activity.user_id %></td>
         <td><%= activity.message_id %></td>
         <td><%= activity.acknowledged_at %></td>
-        <td><%= activity.body %></td>
+        <td><%= activity.type %></td>
         <td><%= link_to 'Show', activity %></td>
         <td><%= link_to 'Edit', edit_activity_path(activity) %></td>
         <td><%= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -6,12 +6,12 @@ RSpec.describe "activities/index", :type => :view do
       Activity.create!(
         :user_id => 1,
         :message_id => 2,
-        :body => "MyText"
+        :type => "MyText"
       ),
       Activity.create!(
         :user_id => 1,
         :message_id => 2,
-        :body => "MyText"
+        :type => "MyText"
       )
     ])
   end

@@ -5,7 +5,7 @@ RSpec.describe "activities/edit", :type => :view do
     @activity = assign(:activity, Activity.create!(
       :user_id => 1,
       :message_id => 1,
-      :body => "MyText"
+      :type => "MyText"
     ))
   end
 
@@ -18,7 +18,7 @@ RSpec.describe "activities/edit", :type => :view do
 
       assert_select "input#activity_message_id[name=?]", "activity[message_id]"
 
-      assert_select "textarea#activity_body[name=?]", "activity[body]"
+      assert_select "textarea#activity_type[name=?]", "activity[type]"
     end
   end
 end
