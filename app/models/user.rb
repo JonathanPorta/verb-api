@@ -2,6 +2,9 @@ class User < ActiveRecord::Base
   has_many :activities
   has_many :messages, through: :activities
 
+  validates :email, :first_name, :last_name, presence: true
+  validates :id, absence: true, on: :create
+
   def self.from_omniauth(auth)
     where(facebook_id: auth.uid).first_or_initialize.tap do |user|
       user.facebook_id = auth.uid

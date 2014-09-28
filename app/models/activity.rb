@@ -4,6 +4,10 @@ class Activity < ActiveRecord::Base
   belongs_to :message
   belongs_to :user
 
+  validates :user, :message, :type, presence: true
+  validates :id, absence: true, on: :create
+  validates :type, inclusion: { in: %w(sent received) }
+
   def self.activities_for_message(message)
     # Sender activity
     Activity.create user: message.sender, message: message, type: 'sent'

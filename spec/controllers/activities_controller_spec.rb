@@ -25,29 +25,32 @@ RSpec.describe ActivitiesController, type: :controller do
   # adjust the attributes here as well.
 
   before :each do
-    @user = FactoryGirl.create :user
-    request.session[:user_id] = @user.id
+    @sender = FactoryGirl.create :user
+    @recipient = FactoryGirl.create :user
+
+    @message = Message.create!(
+      sender: @sender,
+      recipient: @recipient,
+      verb: 'hug'
+    )
+    request.session[:user_id] = @sender.id
     # TODO: Make some peoples message each other.
   end
 
-  let(:valid_attributes) {
-    skip('Add a hash of attributes valid for your model')
-  }
+  let(:valid_attributes) { { user_id: @sender.id, message_id: @message.id, type: 'sent' } }
 
-  let(:invalid_attributes) {
-    skip('Add a hash of attributes invalid for your model')
-  }
+  let(:invalid_attributes) { { id: 'string', message_id: -1 } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # ActivitiesController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) { { user_id: @sender.id } }
 
   describe 'GET index' do
     it 'assigns all activities as @activities' do
       activity = Activity.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:activities)).to eq([activity])
+      expect(assigns(:activities)).to include(activity)
     end
   end
 
@@ -77,9 +80,7 @@ RSpec.describe ActivitiesController, type: :controller do
   describe 'POST create' do
     describe 'with valid params' do
       it 'creates a new Activity' do
-        expect {
-          post :create, { activity: valid_attributes }, valid_session
-        }.to change(Activity, :count).by(1)
+        expect { post :create, { activity: valid_attributes }, valid_session }.to change(Activity, :count).by(1)
       end
 
       it 'assigns a newly created activity as @activity' do
@@ -109,15 +110,13 @@ RSpec.describe ActivitiesController, type: :controller do
 
   describe 'PUT update' do
     describe 'with valid params' do
-      let(:new_attributes) {
-        skip('Add a hash of attributes valid for your model')
-      }
+      let(:new_attributes) { { type: 'received' } }
 
       it 'updates the requested activity' do
         activity = Activity.create! valid_attributes
         put :update, { id: activity.to_param, activity: new_attributes }, valid_session
         activity.reload
-        skip('Add assertions for updated state')
+        expect(activity.type).to eq('received')
       end
 
       it 'assigns the requested activity as @activity' do
@@ -151,9 +150,7 @@ RSpec.describe ActivitiesController, type: :controller do
   describe 'DELETE destroy' do
     it 'destroys the requested activity' do
       activity = Activity.create! valid_attributes
-      expect {
-        delete :destroy, { id: activity.to_param }, valid_session
-      }.to change(Activity, :count).by(-1)
+      expect { delete :destroy, { id: activity.to_param }, valid_session }.to change(Activity, :count).by(-1)
     end
 
     it 'redirects to the activities list' do

@@ -1,12 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe 'activities/edit', type: :view do
-  before(:each) do
-    @activity = assign(:activity, Activity.create!(
-      user_id: 1,
-      message_id: 1,
-      type: 'MyText'
-    ))
+  before :each do
+    @sender = FactoryGirl.create :user
+    @recipient = FactoryGirl.create :user
+
+    @message = Message.create!(
+      sender: @sender,
+      recipient: @recipient,
+      verb: 'hug'
+    )
+
+    @activity = @message.sender_activity
   end
 
   it 'renders the edit activity form' do

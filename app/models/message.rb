@@ -8,6 +8,10 @@ class Message < ActiveRecord::Base
 
   after_create :create_activity_entries
 
+  # Let's at least try to keep the db nice and tidy.
+  validates :sender, :recipient, :verb, presence: true
+  validates :id, absence: true, on: :create
+
   def self.sent_by(user)
     where sender: user
   end

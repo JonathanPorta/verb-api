@@ -2,16 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'activities/index', type: :view do
   before(:each) do
-    # TODO: I think I can use a factory for this. Need to investigate!
-
-    @user = User.create!(
-      first_name: 'Tester',
-      last_name: 'Man'
-    )
+    @sender = FactoryGirl.create :user
+    @recipient = FactoryGirl.create :user
 
     @message = Message.create!(
-      sender: @user,
-      recipient_id: 2,
+      sender: @sender,
+      recipient: @recipient,
       verb: 'hug'
     )
 

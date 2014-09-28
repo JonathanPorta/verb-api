@@ -2,11 +2,23 @@ require 'rails_helper'
 
 RSpec.describe 'messages/edit', type: :view do
   before(:each) do
-    @message = assign(:message, Message.create!(
-      sender_id: 1,
-      recipient_id: 1,
+    @sender = User.create!(
+      first_name: 'Sender',
+      last_name: 'Man',
+      email: 'sender@senderman.tested'
+    )
+
+    @recipient = User.create!(
+      first_name: 'Reciever',
+      last_name: 'Man',
+      email: 'receiver@receiverman.tested'
+    )
+
+    @message = Message.create!(
+      sender: @sender,
+      recipient: @recipient,
       verb: 'hug'
-    ))
+    )
   end
 
   it 'renders the edit message form' do
