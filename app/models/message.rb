@@ -20,6 +20,10 @@ class Message < ActiveRecord::Base
     where recipient: user
   end
 
+  def acknowledge
+    update acknowledged_at: Time.now
+  end
+
   private
 
   def create_activity_entries

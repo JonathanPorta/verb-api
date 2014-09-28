@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get 'messages', to: redirect('activities')
   get 'messages/sent' => 'messages#sent'
   get 'messages/received' => 'messages#received'
+  get 'messages/:id/acknowledge' => 'messages#acknowledge'
 
   resources :messages
 

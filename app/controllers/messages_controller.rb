@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  before_action :set_message, only: [:show, :edit, :update, :destroy]
+  before_action :set_message, only: [:show, :edit, :update, :destroy, :acknowledge]
 
   # GET /messages/1
   # GET /messages/1.json
@@ -25,6 +25,11 @@ class MessagesController < ApplicationController
   # GET /messages/received.json
   def received
     @messages = Message.sent_to current_user
+  end
+
+  # GET /messages/1/acknowledge
+  def acknowledge
+    @message.acknowledge
   end
 
   # POST /messages
