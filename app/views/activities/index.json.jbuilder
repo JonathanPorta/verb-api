@@ -1,5 +1,5 @@
 json.array!(@activities) do |activity|
-  json.extract! activity, :id, :user_id, :message_id, :acknowledged_at, :type
+  json.extract! activity, :id, :user_id, :message_id, :type
   json.message do
     json.extract! activity.message, :id, :sender_id, :recipient_id, :acknowledged_at, :body, :created_at, :updated_at
   end
