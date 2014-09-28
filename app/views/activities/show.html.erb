@@ -2,12 +2,12 @@
 
 <p>
   <strong>User:</strong>
-  <%= @activity.user_id %>
+  <%= @activity.message.sender.name %>
 </p>
 
 <p>
   <strong>Message:</strong>
-  <%= @activity.message_id %>
+  <%= link_to @activity.message.body, message_path(@activity.message_id) %>
 </p>
 
 <p>
