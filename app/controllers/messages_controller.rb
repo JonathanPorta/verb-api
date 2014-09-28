@@ -8,7 +8,7 @@ class MessagesController < ApplicationController
 
   # GET /messages/new
   def new
-    @message = Message.new sender_id: current_user.id
+    @message = Message.new sender: current_user
   end
 
   # GET /messages/1/edit

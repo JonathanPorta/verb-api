@@ -18,6 +18,9 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+
+  config.include IntegrationSpecHelper, :type => :request
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -41,3 +44,26 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 end
+
+# Setup OmniAuth with a FB provider mock. Override this as needed
+# using OmniAuth.config.add_mock
+# See https://github.com/intridea/omniauth/wiki/Integration-Testing
+OmniAuth.config.test_mode = true
+OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
+  provider: 'facebook',
+  uid: '0123456789',
+  credentials: {
+    token: 'samplefbcredtoken',
+    expires_at: 1727420400
+  },
+  info: {
+    email: 'verbtest+rurd4me@gmail.com',
+    first_name: 'Jonathantest',
+    last_name: 'Portatest'
+  },
+  extra: {
+    raw_info: {
+      birthday: '6/14'
+    }
+  }
+})

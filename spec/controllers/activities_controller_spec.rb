@@ -23,6 +23,13 @@ RSpec.describe ActivitiesController, :type => :controller do
   # This should return the minimal set of attributes required to create a valid
   # Activity. As you add validations to Activity, be sure to
   # adjust the attributes here as well.
+
+  before :each do
+    @user = FactoryGirl.create :user
+    request.session[:user_id] = @user.id
+    # TODO: Make some peoples message each other.
+  end
+
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
   }

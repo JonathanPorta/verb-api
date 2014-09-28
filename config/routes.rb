@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   get 'user' => 'sessions#show', format: 'json'
 
+  get 'messages', to: redirect('activities')
   get 'messages/sent' => 'messages#sent'
   get 'messages/received' => 'messages#received'
 
