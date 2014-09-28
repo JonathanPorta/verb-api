@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
 
-  sequence :facebook_id do |n|
-    n
+  sequence :facebook_id do |number|
+    number
   end
 
   factory :user do

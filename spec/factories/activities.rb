@@ -4,6 +4,5 @@ FactoryGirl.define do
   factory :activity do
     user_id 1
     message_id 1
-    body "MyText"
   end
 end

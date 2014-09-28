@@ -11,7 +11,7 @@ RSpec.describe 'activities/show', type: :view do
     @message = Message.create!(
       sender: @user,
       recipient_id: 2,
-      body: 'MyText'
+      verb: 'hug'
     )
 
     @activity = @message.sender_activity
@@ -21,7 +21,7 @@ RSpec.describe 'activities/show', type: :view do
   it 'renders attributes in <p>' do
     render
     expect(rendered).to match(/Tester Man/)
-    expect(rendered).to match(/MyText/)
+    expect(rendered).to match(/hug/)
     expect(rendered).to match(/sent/)
   end
 end
