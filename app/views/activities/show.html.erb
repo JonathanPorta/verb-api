@@ -2,12 +2,12 @@
 
 <p>
   <strong>Sender:</strong>
-  <%= @activity.message.sender.name %>
+  <%= @activity.message.sender.decorate.name %>
 </p>
 
 <p>
   <strong>Message:</strong>
-  <%= link_to @activity.message.body, message_path(@activity.message_id) %>
+  <%= link_to @activity.message.verb, message_path(@activity.message_id) %>
 </p>
 
 <p>

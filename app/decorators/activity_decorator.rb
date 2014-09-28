@@ -1,5 +1,8 @@
 class ActivityDecorator < Draper::Decorator
-  delegate_all
+  delegate :id, :user, :message, :type
+
+  decorates_association :user
+  decorates_association :message
 
   # Define presentation-specific methods here. Helpers are accessed through
   # `helpers` (aka `h`). You can override attributes, for example:

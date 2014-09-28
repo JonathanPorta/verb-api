@@ -1,5 +1,4 @@
 class Message < ActiveRecord::Base
-
   belongs_to :sender, class_name: 'User'
   belongs_to :recipient, class_name: 'User'
 
@@ -18,8 +17,8 @@ class Message < ActiveRecord::Base
   end
 
   private
-    def create_activity_entries
-      # TODO Create activities for each user.
-      Activity.activities_for_message(self)
-    end
+
+  def create_activity_entries
+    Activity.activities_for_message(self)
+  end
 end
