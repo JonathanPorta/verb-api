@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe "activities/edit", :type => :view do
+RSpec.describe "activities/edit", type: :view do
   before(:each) do
     @activity = assign(:activity, Activity.create!(
-      :user_id => 1,
-      :message_id => 1,
-      :type => "MyText"
+      user_id: 1,
+      message_id: 1,
+      type: "MyText"
     ))
   end
 

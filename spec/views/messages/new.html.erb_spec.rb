@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe "messages/new", :type => :view do
+RSpec.describe "messages/new", type: :view do
   before(:each) do
     assign(:message, Message.new(
-      :sender_id => 1,
-      :recipient_id => 1,
-      :body => "MyText"
+      sender_id: 1,
+      recipient_id: 1,
+      body: "MyText"
     ))
   end
 

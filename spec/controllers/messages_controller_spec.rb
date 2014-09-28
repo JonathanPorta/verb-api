@@ -18,7 +18,7 @@ require 'rails_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-RSpec.describe MessagesController, :type => :controller do
+RSpec.describe MessagesController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
   # Message. As you add validations to Message, be sure to
@@ -62,7 +62,7 @@ RSpec.describe MessagesController, :type => :controller do
   describe "GET show" do
     it "assigns the requested message as @message" do
       message = Message.create! valid_attributes
-      get :show, {:id => message.to_param}, valid_session
+      get :show, {id: message.to_param}, valid_session
       expect(assigns(:message)).to eq(message)
     end
   end
@@ -77,7 +77,7 @@ RSpec.describe MessagesController, :type => :controller do
   describe "GET edit" do
     it "assigns the requested message as @message" do
       message = Message.create! valid_attributes
-      get :edit, {:id => message.to_param}, valid_session
+      get :edit, {id: message.to_param}, valid_session
       expect(assigns(:message)).to eq(message)
     end
   end
@@ -86,30 +86,30 @@ RSpec.describe MessagesController, :type => :controller do
     describe "with valid params" do
       it "creates a new Message" do
         expect {
-          post :create, {:message => valid_attributes}, valid_session
+          post :create, {message: valid_attributes}, valid_session
         }.to change(Message, :count).by(1)
       end
 
       it "assigns a newly created message as @message" do
-        post :create, {:message => valid_attributes}, valid_session
+        post :create, {message: valid_attributes}, valid_session
         expect(assigns(:message)).to be_a(Message)
         expect(assigns(:message)).to be_persisted
       end
 
       it "redirects to the created message" do
-        post :create, {:message => valid_attributes}, valid_session
+        post :create, {message: valid_attributes}, valid_session
         expect(response).to redirect_to(Message.last)
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved message as @message" do
-        post :create, {:message => invalid_attributes}, valid_session
+        post :create, {message: invalid_attributes}, valid_session
         expect(assigns(:message)).to be_a_new(Message)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:message => invalid_attributes}, valid_session
+        post :create, {message: invalid_attributes}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -123,20 +123,20 @@ RSpec.describe MessagesController, :type => :controller do
 
       it "updates the requested message" do
         message = Message.create! valid_attributes
-        put :update, {:id => message.to_param, :message => new_attributes}, valid_session
+        put :update, {id: message.to_param, message: new_attributes}, valid_session
         message.reload
         skip("Add assertions for updated state")
       end
 
       it "assigns the requested message as @message" do
         message = Message.create! valid_attributes
-        put :update, {:id => message.to_param, :message => valid_attributes}, valid_session
+        put :update, {id: message.to_param, message: valid_attributes}, valid_session
         expect(assigns(:message)).to eq(message)
       end
 
       it "redirects to the message" do
         message = Message.create! valid_attributes
-        put :update, {:id => message.to_param, :message => valid_attributes}, valid_session
+        put :update, {id: message.to_param, message: valid_attributes}, valid_session
         expect(response).to redirect_to(message)
       end
     end
@@ -144,13 +144,13 @@ RSpec.describe MessagesController, :type => :controller do
     describe "with invalid params" do
       it "assigns the message as @message" do
         message = Message.create! valid_attributes
-        put :update, {:id => message.to_param, :message => invalid_attributes}, valid_session
+        put :update, {id: message.to_param, message: invalid_attributes}, valid_session
         expect(assigns(:message)).to eq(message)
       end
 
       it "re-renders the 'edit' template" do
         message = Message.create! valid_attributes
-        put :update, {:id => message.to_param, :message => invalid_attributes}, valid_session
+        put :update, {id: message.to_param, message: invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -160,13 +160,13 @@ RSpec.describe MessagesController, :type => :controller do
     it "destroys the requested message" do
       message = Message.create! valid_attributes
       expect {
-        delete :destroy, {:id => message.to_param}, valid_session
+        delete :destroy, {id: message.to_param}, valid_session
       }.to change(Message, :count).by(-1)
     end
 
     it "redirects to the messages list" do
       message = Message.create! valid_attributes
-      delete :destroy, {:id => message.to_param}, valid_session
+      delete :destroy, {id: message.to_param}, valid_session
       expect(response).to redirect_to(messages_url)
     end
   end
