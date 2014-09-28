@@ -23,4 +23,8 @@ class MessageDecorator < Draper::Decorator
     return nil unless object.acknowledged_at
     helpers.time_ago_in_words object.acknowledged_at
   end
+
+  def conjugate_verb(tense, aspect)
+    Verbs::Conjugator.conjugate "#{ object.verb }", tense: tense, aspect: aspect
+  end
 end

@@ -19,6 +19,7 @@ gem 'omniauth'
 gem 'omniauth-facebook', '1.4.0'
 
 gem 'draper', '1.3.1'
+gem 'verbs', '2.1.4'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
