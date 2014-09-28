@@ -44,6 +44,7 @@ group :development, :test do
   gem 'rspec', '~> 3.0.0'
   gem 'rspec-rails', '~> 3.0.0'
   gem 'pry-byebug'
+  gem 'guard-rubocop', require: false
 end
 
 group :development do
@@ -52,7 +53,6 @@ group :development do
   gem 'binding_of_caller'
   gem 'guard-livereload', require: false
   gem 'guard-rspec', require: false
-  gem 'guard-rubocop', require: false
   gem 'meta_request' # for use with RailsPanel Chrome Extension
   gem 'quiet_assets'
   gem 'pry-rails'
