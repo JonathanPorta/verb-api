@@ -13,4 +13,7 @@ class SessionsController < ApplicationController
   def show
     @user = current_user
   end
+
+  def failure
+  end
 end
