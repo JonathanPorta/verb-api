@@ -17,6 +17,7 @@ gem 'coffee-rails', '~> 4.0.0'
 
 gem 'omniauth'
 gem 'omniauth-facebook', '1.4.0'
+gem 'omniauth-facebook-access-token'
 
 gem 'draper', '1.3.1'
 gem 'verbs', '2.1.4'
