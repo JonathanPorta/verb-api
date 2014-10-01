@@ -18,140 +18,144 @@ require 'rails_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-RSpec.describe ActivitiesController, :type => :controller do
+RSpec.describe ActivitiesController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
   # Activity. As you add validations to Activity, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  before :each do
+    @sender = FactoryGirl.create :user
+    @recipient = FactoryGirl.create :user
+
+    @message = Message.create!(
+      sender: @sender,
+      recipient: @recipient,
+      verb: 'hug'
+    )
+    request.session[:user_id] = @sender.id
+    # TODO: Make some peoples message each other.
+  end
+
+  let(:valid_attributes) { { user_id: @sender.id, message_id: @message.id, type: 'sent' } }
+
+  let(:invalid_attributes) { { id: 'string', message_id: -1 } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # ActivitiesController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) { { user_id: @sender.id } }
 
-  describe "GET index" do
-    it "assigns all activities as @activities" do
+  describe 'GET index' do
+    it 'assigns all activities as @activities' do
       activity = Activity.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:activities)).to eq([activity])
+      expect(assigns(:activities)).to include(activity)
     end
   end
 
-  describe "GET show" do
-    it "assigns the requested activity as @activity" do
+  describe 'GET show' do
+    it 'assigns the requested activity as @activity' do
       activity = Activity.create! valid_attributes
-      get :show, {:id => activity.to_param}, valid_session
+      get :show, { id: activity.to_param }, valid_session
       expect(assigns(:activity)).to eq(activity)
     end
   end
 
-  describe "GET new" do
-    it "assigns a new activity as @activity" do
+  describe 'GET new' do
+    it 'assigns a new activity as @activity' do
       get :new, {}, valid_session
       expect(assigns(:activity)).to be_a_new(Activity)
     end
   end
 
-  describe "GET edit" do
-    it "assigns the requested activity as @activity" do
+  describe 'GET edit' do
+    it 'assigns the requested activity as @activity' do
       activity = Activity.create! valid_attributes
-      get :edit, {:id => activity.to_param}, valid_session
+      get :edit, { id: activity.to_param }, valid_session
       expect(assigns(:activity)).to eq(activity)
     end
   end
 
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new Activity" do
-        expect {
-          post :create, {:activity => valid_attributes}, valid_session
-        }.to change(Activity, :count).by(1)
+  describe 'POST create' do
+    describe 'with valid params' do
+      it 'creates a new Activity' do
+        expect { post :create, { activity: valid_attributes }, valid_session }.to change(Activity, :count).by(1)
       end
 
-      it "assigns a newly created activity as @activity" do
-        post :create, {:activity => valid_attributes}, valid_session
+      it 'assigns a newly created activity as @activity' do
+        post :create, { activity: valid_attributes }, valid_session
         expect(assigns(:activity)).to be_a(Activity)
         expect(assigns(:activity)).to be_persisted
       end
 
-      it "redirects to the created activity" do
-        post :create, {:activity => valid_attributes}, valid_session
+      it 'redirects to the created activity' do
+        post :create, { activity: valid_attributes }, valid_session
         expect(response).to redirect_to(Activity.last)
       end
     end
 
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved activity as @activity" do
-        post :create, {:activity => invalid_attributes}, valid_session
+    describe 'with invalid params' do
+      it 'assigns a newly created but unsaved activity as @activity' do
+        post :create, { activity: invalid_attributes }, valid_session
         expect(assigns(:activity)).to be_a_new(Activity)
       end
 
-      it "re-renders the 'new' template" do
-        post :create, {:activity => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
+      it 're-renders the new template' do
+        post :create, { activity: invalid_attributes }, valid_session
+        expect(response).to render_template('new')
       end
     end
   end
 
-  describe "PUT update" do
-    describe "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+  describe 'PUT update' do
+    describe 'with valid params' do
+      let(:new_attributes) { { type: 'received' } }
 
-      it "updates the requested activity" do
+      it 'updates the requested activity' do
         activity = Activity.create! valid_attributes
-        put :update, {:id => activity.to_param, :activity => new_attributes}, valid_session
+        put :update, { id: activity.to_param, activity: new_attributes }, valid_session
         activity.reload
-        skip("Add assertions for updated state")
+        expect(activity.type).to eq('received')
       end
 
-      it "assigns the requested activity as @activity" do
+      it 'assigns the requested activity as @activity' do
         activity = Activity.create! valid_attributes
-        put :update, {:id => activity.to_param, :activity => valid_attributes}, valid_session
+        put :update, { id: activity.to_param, activity: valid_attributes }, valid_session
         expect(assigns(:activity)).to eq(activity)
       end
 
-      it "redirects to the activity" do
+      it 'redirects to the activity' do
         activity = Activity.create! valid_attributes
-        put :update, {:id => activity.to_param, :activity => valid_attributes}, valid_session
+        put :update, { id: activity.to_param, activity: valid_attributes }, valid_session
         expect(response).to redirect_to(activity)
       end
     end
 
-    describe "with invalid params" do
-      it "assigns the activity as @activity" do
+    describe 'with invalid params' do
+      it 'assigns the activity as @activity' do
         activity = Activity.create! valid_attributes
-        put :update, {:id => activity.to_param, :activity => invalid_attributes}, valid_session
+        put :update, { id: activity.to_param, activity: invalid_attributes }, valid_session
         expect(assigns(:activity)).to eq(activity)
       end
 
-      it "re-renders the 'edit' template" do
+      it 're-renders the edit template' do
         activity = Activity.create! valid_attributes
-        put :update, {:id => activity.to_param, :activity => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
+        put :update, { id: activity.to_param, activity: invalid_attributes }, valid_session
+        expect(response).to render_template('edit')
       end
     end
   end
 
-  describe "DELETE destroy" do
-    it "destroys the requested activity" do
+  describe 'DELETE destroy' do
+    it 'destroys the requested activity' do
       activity = Activity.create! valid_attributes
-      expect {
-        delete :destroy, {:id => activity.to_param}, valid_session
-      }.to change(Activity, :count).by(-1)
+      expect { delete :destroy, { id: activity.to_param }, valid_session }.to change(Activity, :count).by(-1)
     end
 
-    it "redirects to the activities list" do
+    it 'redirects to the activities list' do
       activity = Activity.create! valid_attributes
-      delete :destroy, {:id => activity.to_param}, valid_session
+      delete :destroy, { id: activity.to_param }, valid_session
       expect(response).to redirect_to(activities_url)
     end
   end

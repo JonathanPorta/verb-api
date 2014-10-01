@@ -4,20 +4,28 @@
   <thead>
     <tr>
       <th>User</th>
+      <th>Verb</th>
       <th>Message</th>
-      <th>Acknowledged at</th>
       <th>Type</th>
+      <th>Sent</th>
+      <th>Acknowledged</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @activities.each do |activity| %>
+    <% @activities.decorate.each do |activity| %>
       <tr>
-        <td><%= activity.user_id %></td>
-        <td><%= activity.message_id %></td>
-        <td><%= activity.acknowledged_at %></td>
+        <td><%= activity.user.name %></td>
+        <td><%= activity.message.verb %></td>
+        <td><%= activity.activity_message %></td>
         <td><%= activity.type %></td>
+        <td><%= activity.message.created_at_in_words %> ago</td>
+        <% if activity.message.acknowledged_at %>
+          <td><%= activity.message.acknowledged_at_in_words %> ago</td>
+        <% else %>
+          <td>Not yet, silly!</td>
+        <% end %>
         <td><%= link_to 'Show', activity %></td>
         <td><%= link_to 'Edit', edit_activity_path(activity) %></td>
         <td><%= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' } %></td>

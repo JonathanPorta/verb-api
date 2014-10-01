@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   def create
-    user = User.from_omniauth env["omniauth.auth"]
+    user = User.from_omniauth env['omniauth.auth']
     session[:user_id] = user.id
     redirect_to root_url
   end
@@ -12,5 +12,10 @@ class SessionsController < ApplicationController
 
   def show
     @user = current_user
+  end
+
+  def failure
+    # TODO: Need to think about what should actually happen here.
+    redirect_to root_url
   end
 end

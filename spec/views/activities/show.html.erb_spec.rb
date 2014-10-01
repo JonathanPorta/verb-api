@@ -1,18 +1,34 @@
 require 'rails_helper'
 
-RSpec.describe "activities/show", :type => :view do
+RSpec.describe 'activities/show', type: :view do
   before(:each) do
-    @activity = assign(:activity, Activity.create!(
-      :user_id => 1,
-      :message_id => 2,
-      :type => "MyText"
-    ))
+
+    @sender = User.create!(
+      first_name: 'Sender',
+      last_name: 'Man',
+      email: 'sender@senderman.tested'
+    )
+
+    @recipient = User.create!(
+      first_name: 'Reciever',
+      last_name: 'Man',
+      email: 'receiver@receiverman.tested'
+    )
+
+    @message = Message.create!(
+      sender: @sender,
+      recipient: @recipient,
+      verb: 'hug'
+    )
+
+    @activity = @message.sender_activity
+
   end
 
-  it "renders attributes in <p>" do
+  it 'renders attributes in <p>' do
     render
-    expect(rendered).to match(/1/)
-    expect(rendered).to match(/2/)
-    expect(rendered).to match(/MyText/)
+    expect(rendered).to match(/Sender Man/)
+    expect(rendered).to match(/hug/)
+    expect(rendered).to match(/sent/)
   end
 end

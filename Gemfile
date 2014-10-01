@@ -17,6 +17,10 @@ gem 'coffee-rails', '~> 4.0.0'
 
 gem 'omniauth'
 gem 'omniauth-facebook', '1.4.0'
+gem 'omniauth-facebook-access-token'
+
+gem 'draper', '1.3.1'
+gem 'verbs', '2.1.4'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -42,6 +46,7 @@ group :development, :test do
   gem 'rspec', '~> 3.0.0'
   gem 'rspec-rails', '~> 3.0.0'
   gem 'pry-byebug'
+  gem 'guard-rubocop', require: false
 end
 
 group :development do
@@ -50,7 +55,6 @@ group :development do
   gem 'binding_of_caller'
   gem 'guard-livereload', require: false
   gem 'guard-rspec', require: false
-  gem 'guard-rubocop', require: false
   gem 'meta_request' # for use with RailsPanel Chrome Extension
   gem 'quiet_assets'
   gem 'pry-rails'

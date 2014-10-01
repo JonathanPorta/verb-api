@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  before_action :set_message, only: [:show, :edit, :update, :destroy]
+  before_action :set_message, only: [:show, :edit, :update, :destroy, :acknowledge]
 
   # GET /messages/1
   # GET /messages/1.json
@@ -8,7 +8,7 @@ class MessagesController < ApplicationController
 
   # GET /messages/new
   def new
-    @message = Message.new sender_id: current_user.id
+    @message = Message.new sender: current_user
   end
 
   # GET /messages/1/edit
@@ -25,6 +25,11 @@ class MessagesController < ApplicationController
   # GET /messages/received.json
   def received
     @messages = Message.sent_to current_user
+  end
+
+  # GET /messages/1/acknowledge
+  def acknowledge
+    @message.acknowledge
   end
 
   # POST /messages
@@ -68,13 +73,14 @@ class MessagesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_message
-      @message = Message.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def message_params
-      params.require(:message).permit(:sender_id, :recipient_id, :acknowledged_at, :body)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_message
+    @message = Message.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def message_params
+    params.require(:message).permit(:sender_id, :recipient_id, :acknowledged_at, :verb)
+  end
 end

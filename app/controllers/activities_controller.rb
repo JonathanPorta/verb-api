@@ -4,7 +4,7 @@ class ActivitiesController < ApplicationController
   # GET /activities
   # GET /activities.json
   def index
-    @activities = Activity.all
+    @activities = current_user.activities.order created_at: :desc
   end
 
   # GET /activities/1
@@ -62,13 +62,14 @@ class ActivitiesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_activity
-      @activity = Activity.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def activity_params
-      params.require(:activity).permit(:user_id, :message_id, :acknowledged_at, :type)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_activity
+    @activity = Activity.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def activity_params
+    params.require(:activity).permit(:user_id, :message_id, :type)
+  end
 end

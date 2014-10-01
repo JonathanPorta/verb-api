@@ -1,18 +1,18 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>User:</strong>
-  <%= @activity.user_id %>
+  <strong>Sender:</strong>
+  <%= @activity.message.sender.decorate.name %>
 </p>
 
 <p>
   <strong>Message:</strong>
-  <%= @activity.message_id %>
+  <%= link_to @activity.message.verb, message_path(@activity.message_id) %>
 </p>
 
 <p>
-  <strong>Acknowledged at:</strong>
-  <%= @activity.acknowledged_at %>
+  <strong>Message Acknowledged at:</strong>
+  <%= @activity.message.acknowledged_at %>
 </p>
 
 <p>
