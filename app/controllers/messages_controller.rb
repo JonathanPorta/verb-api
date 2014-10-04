@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  before_action :set_message, only: [:show, :edit, :update, :destroy, :acknowledge]
+  before_action :set_message, only: [:show, :edit, :update, :destroy, :acknowledge, :reciprocate]
 
   # GET /messages/1
   # GET /messages/1.json
@@ -30,6 +30,11 @@ class MessagesController < ApplicationController
   # GET /messages/1/acknowledge
   def acknowledge
     @message.acknowledge
+  end
+
+  # GET /messages/1/reciprocate
+  def reciprocate
+    @message = Message.reciprocate @message
   end
 
   # POST /messages
