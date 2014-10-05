@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get 'messages/sent' => 'messages#sent'
   get 'messages/received' => 'messages#received'
   get 'messages/:id/acknowledge' => 'messages#acknowledge'
+  get 'messages/:id/reciprocate' => 'messages#reciprocate'
 
   resources :messages
 

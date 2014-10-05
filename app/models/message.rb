@@ -24,6 +24,10 @@ class Message < ActiveRecord::Base
     update acknowledged_at: Time.now
   end
 
+  def self.reciprocate(original_message)
+    Message.create sender: original_message.recipient, recipient: original_message.sender, verb: original_message.verb
+  end
+
   private
 
   def create_activity_entries

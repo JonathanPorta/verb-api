@@ -6,7 +6,16 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    # logger.debug request.headers.inspect
+    logger.debug request.headers['HTTP_ACCESS_TOKEN']
+    # logger.debug request.headers['access_token']
+    if session[:user_id]
+      logger.warn 'Getting user because the session had a user_id.'
+      @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    elsif request.headers['HTTP_ACCESS_TOKEN']
+      logger.warn 'Getting user because request had an access token.'
+      @urrent_user ||= User.find_by facebook_token: request.headers['HTTP_ACCESS_TOKEN']
+    end
 
   rescue ActiveRecord::RecordNotFound => e
     # The user has an invalid session, so let's kill it off.

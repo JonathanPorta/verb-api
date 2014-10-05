@@ -6,10 +6,10 @@ class User < ActiveRecord::Base
   validates :id, absence: true, on: :create
 
   def self.from_omniauth(auth)
-    where(facebook_id: auth.uid).first_or_initialize.tap do |user|
+    authed_user = where(facebook_id: auth.uid).first_or_initialize.tap do |user|
       user.facebook_id = auth.uid
       user.facebook_token = auth.credentials.token
-      user.facebook_token_expires_at = Time.at(auth.credentials.expires_at)
+      user.facebook_token_expires_at = Time.at(auth.credentials.expires_at) if auth.credentials.expires_at
 
       user.email = auth.info.email
       user.first_name = auth.info.first_name
@@ -18,5 +18,13 @@ class User < ActiveRecord::Base
 
       user.save!
     end
+
+    # Ensure auth token is up to date.
+    if authed_user.facebook_token != auth.credentials.token
+      authed_user.facebook_token = auth.credentials.token
+      authed_user.save!
+    end
+
+    authed_user
   end
 end
