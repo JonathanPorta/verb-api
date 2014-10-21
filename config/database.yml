@@ -2,7 +2,10 @@ defaults: &defaults
   adapter: postgresql
   encoding: unicode
   pool: 20
-  username: <%= ENV['POSTGRES_USERNAME'] || ENV['USER'] %>
+  host: <%= ENV['DB_PORT_5432_TCP_ADDR'] %>
+  port: <%= ENV['DB_PORT_5432_TCP_PORT'] %>
+  username: postgres
+  password:
 
 development:
   database: verb_development
