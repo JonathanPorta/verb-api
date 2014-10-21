@@ -18,4 +18,4 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 80
 
-CMD /bin/bash -c -l 'bundle exec rake db:create && bundle exec rake db:migrate && foreman run bundle exec rails server -p 80'
+CMD /bin/bash -c -l 'cd /home/app && bundle exec rake db:create && bundle exec rake db:migrate && foreman run bundle exec rails server -p 80'
