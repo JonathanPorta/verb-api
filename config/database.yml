@@ -4,8 +4,8 @@ defaults: &defaults
   pool: 20
   host: <%= ENV['DB_PORT_5432_TCP_ADDR'] %>
   port: <%= ENV['DB_PORT_5432_TCP_PORT'] %>
-  username: postgres
-  password:
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
 
 development:
   database: verb_development

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'friends/' => 'friends#index', format: 'json'
   get 'verbs' => 'verbs#index', format: 'json'
   resources :activities
 

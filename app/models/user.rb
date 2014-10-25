@@ -27,4 +27,10 @@ class User < ActiveRecord::Base
 
     authed_user
   end
+
+  def friends
+    graph = Koala::Facebook::API.new(self.facebook_token)
+    friends = graph.get_connections("me", "friends")
+    friends
+  end
 end
