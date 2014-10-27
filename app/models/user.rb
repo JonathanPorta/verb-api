@@ -28,9 +28,20 @@ class User < ActiveRecord::Base
     authed_user
   end
 
+  def self.from_facebook(user_hash)
+    facebbok_user = where(facebook_id: user_hash['id']).first()
+  end
+
   def friends
     graph = Koala::Facebook::API.new(self.facebook_token)
-    friends = graph.get_connections("me", "friends")
-    friends
+    friends = graph.get_connections('me', 'friends')
+
+    friends.inject([]) do |app_friends,friend|
+      facebook_friend = User.from_facebook(friend)
+      if facebook_friend
+        app_friends.push(facebook_friend)
+      end
+      app_friends
+    end
   end
 end
