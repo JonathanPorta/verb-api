@@ -1,13 +1,14 @@
 language: ruby
 rvm:
 - 2.1.2
+bundler_args: --retry 5
 addons:
   postgresql: '9.3'
 before_install:
-- gem update bundler
-- bundle config build.nokogiri --use-system-libraries
+- travis_retry gem update bundler
+- travis_retry bundle config build.nokogiri --use-system-libraries
 install:
-- bundle install --without development production
+- travis_retry bundle install --without development production
 before_script:
 - cp config/database.travis.yml config/database.yml
 - psql -c 'create database verb_test;' -U postgres
