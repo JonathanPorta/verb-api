@@ -19,3 +19,5 @@
 # Ignore the dev/test DB data directory
 /data/
 /coverage/
+certificates/*
+!certificates/README.md
