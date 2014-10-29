@@ -7,6 +7,7 @@ class Message < ActiveRecord::Base
   has_one :recipient_activity, ->(message) { where type: 'received', message_id: message.id }, class_name: 'Activity'
 
   after_create :create_activity_entries
+  after_save :send_notifications
 
   # Let's at least try to keep the db nice and tidy.
   validates :sender, :recipient, :verb, presence: true
@@ -31,6 +32,13 @@ class Message < ActiveRecord::Base
   private
 
   def create_activity_entries
+    Activity.activities_for_message(self)
+  end
+
+  def send_notifications
+    self.recipient.devices do |device|
+      device.notify()
+    end
     Activity.activities_for_message(self)
   end
 end

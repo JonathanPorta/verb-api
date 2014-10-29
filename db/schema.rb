@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140928081404) do
+ActiveRecord::Schema.define(version: 20141028211318) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(version: 20140928081404) do
     t.datetime "updated_at"
     t.string   "type"
   end
+
+  create_table "devices", force: true do |t|
+    t.integer  "user_id"
+    t.string   "token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "devices", ["token"], name: "index_devices_on_token", unique: true, using: :btree
 
   create_table "messages", force: true do |t|
     t.integer  "sender_id"

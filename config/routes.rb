@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  post 'devices/' => 'devices#create', format: 'json'
+
   get 'friends/' => 'friends#index', format: 'json'
   get 'verbs' => 'verbs#index', format: 'json'
   resources :activities
