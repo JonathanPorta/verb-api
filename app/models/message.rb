@@ -36,9 +36,12 @@ class Message < ActiveRecord::Base
   end
 
   def send_notifications
-    self.recipient.devices do |device|
-      device.notify()
+    message = self.recipient_activity.decorate.activity_message
+    logger.info "Preparing to send push notification of #{ message } to recipient: #{ self.recipient.id }"
+
+    self.recipient.devices.each do |device|
+      logger.info "Sending push notification of #{ message } to #{ device.token } for user #{ self.recipient.id }"
+      device.notify message
     end
-    Activity.activities_for_message(self)
   end
 end

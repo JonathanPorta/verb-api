@@ -15,6 +15,11 @@ Bundler.require(*Rails.groups)
 
 module Verb
   class Application < Rails::Application
+
+    config.after_initialize do
+      APNS.pem  = "config/certs/verb-dev-aps.pem"
+      APNS.port = 2195
+    end
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
