@@ -6,6 +6,10 @@ class User < ActiveRecord::Base
   validates :email, :first_name, :last_name, presence: true
   validates :id, absence: true, on: :create
 
+  after_save do
+    Librato.increment 'users.count', User.count, sporadic: true
+  end
+
   def self.from_omniauth(auth)
     authed_user = where(facebook_id: auth.uid).first_or_initialize.tap do |user|
       user.facebook_id = auth.uid
@@ -18,6 +22,8 @@ class User < ActiveRecord::Base
       user.birthday = auth.extra.raw_info.birthday
 
       user.save!
+
+      Librato.increment 'users.signup'
     end
 
     # Ensure auth token is up to date.
@@ -30,18 +36,16 @@ class User < ActiveRecord::Base
   end
 
   def self.from_facebook(user_hash)
-    facebbok_user = where(facebook_id: user_hash['id']).first()
+    where(facebook_id: user_hash['id']).first
   end
 
   def friends
-    graph = Koala::Facebook::API.new(self.facebook_token)
+    graph = Koala::Facebook::API.new(:facebook_token)
     friends = graph.get_connections('me', 'friends')
 
-    friends.inject([]) do |app_friends,friend|
+    friends.inject([]) do |app_friends, friend|
       facebook_friend = User.from_facebook(friend)
-      if facebook_friend
-        app_friends.push(facebook_friend)
-      end
+      app_friends.push(facebook_friend) if facebook_friend
       app_friends
     end
   end

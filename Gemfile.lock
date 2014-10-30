@@ -28,6 +28,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.6)
+    aggregate (0.2.2)
     annotate (2.6.5)
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
@@ -136,6 +137,16 @@ GEM
       addressable
       faraday
       multi_json
+    librato-metrics (1.4.0)
+      aggregate (~> 0.2.2)
+      faraday (~> 0.7)
+      multi_json
+    librato-rack (0.4.5)
+      librato-metrics (~> 1.1)
+    librato-rails (0.11.1)
+      activesupport (>= 3.0)
+      librato-rack (~> 0.4.2)
+      railties (>= 3.0)
     listen (2.7.11)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
@@ -345,6 +356,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   koala
+  librato-rails
   meta_request
   omniauth
   omniauth-facebook

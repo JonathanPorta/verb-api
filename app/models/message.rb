@@ -7,7 +7,9 @@ class Message < ActiveRecord::Base
   has_one :recipient_activity, ->(message) { where type: 'received', message_id: message.id }, class_name: 'Activity'
 
   after_create :create_activity_entries
-  after_save :send_notifications
+  after_save do
+    Librato.increment 'messages.sent'
+  end
 
   # Let's at least try to keep the db nice and tidy.
   validates :sender, :recipient, :verb, presence: true
@@ -23,25 +25,17 @@ class Message < ActiveRecord::Base
 
   def acknowledge
     update acknowledged_at: Time.now
+    Librato.increment 'messages.acknowledged'
   end
 
   def self.reciprocate(original_message)
     Message.create sender: original_message.recipient, recipient: original_message.sender, verb: original_message.verb
+    Librato.increment 'messages.reciprocated'
   end
 
   private
 
   def create_activity_entries
-    Activity.activities_for_message(self)
-  end
-
-  def send_notifications
-    message = self.recipient_activity.decorate.activity_message
-    logger.info "Preparing to send push notification of #{ message } to recipient: #{ self.recipient.id }"
-
-    self.recipient.devices.each do |device|
-      logger.info "Sending push notification of #{ message } to #{ device.token } for user #{ self.recipient.id }"
-      device.notify message
-    end
+    Activity.activities_for_message self
   end
 end
