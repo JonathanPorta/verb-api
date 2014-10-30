@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   validates :id, absence: true, on: :create
 
   after_save do
-    Librato.increment 'users.count', User.count, sporadic: true
+    Librato.measure 'users.count', User.count, sporadic: true
   end
 
   def self.from_omniauth(auth)
