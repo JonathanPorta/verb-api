@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
 
     # Ensure auth token is up to date.
     if authed_user.facebook_token != auth.credentials.token
+      logger.warn 'Updating user FB auth token'
       authed_user.facebook_token = auth.credentials.token
       authed_user.save!
     end
@@ -40,7 +41,7 @@ class User < ActiveRecord::Base
   end
 
   def friends
-    graph = Koala::Facebook::API.new(:facebook_token)
+    graph = Koala::Facebook::API.new(facebook_token)
     friends = graph.get_connections('me', 'friends')
 
     friends.inject([]) do |app_friends, friend|
