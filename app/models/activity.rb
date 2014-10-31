@@ -21,7 +21,7 @@ class Activity < ActiveRecord::Base
   private
 
   def notify
-    return if :type != 'received'
+    return if type != 'received'
     message = decorate.activity_message
     logger.info "Preparing to send push notification of #{ message } to recipient: #{ user.id }"
 
