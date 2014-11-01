@@ -29,8 +29,9 @@ class Message < ActiveRecord::Base
   end
 
   def self.reciprocate(original_message)
-    Message.create sender: original_message.recipient, recipient: original_message.sender, verb: original_message.verb
+    newMsg = Message.create sender: original_message.recipient, recipient: original_message.sender, verb: original_message.verb
     Librato.increment 'messages.reciprocated'
+    newMsg
   end
 
   private
