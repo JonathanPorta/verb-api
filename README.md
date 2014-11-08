@@ -24,5 +24,5 @@ Then install the application:
 bundle install # install dependencies
 bundle exec rake db:setup # setup the database
 bundle exec rails server # start the server
-# visit http://localhost:300
+# visit http://localhost:3000
 ```
