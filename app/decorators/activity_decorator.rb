@@ -21,6 +21,14 @@ class ActivityDecorator < Draper::Decorator
     end
   end
 
+  def reciprocate_message
+    unacknowledged_message_for_sender
+  end
+
+  def acknowledge_message
+    acknowledged_message_for_recipient
+  end
+
   private
 
   def acknowledged_message_for_sender
