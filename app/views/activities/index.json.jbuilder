@@ -3,8 +3,8 @@ json.array!(@activities) do |activity|
   json.extract! activity, :id, :type, :activity_message
 
   if activity.type == 'received'
-    json.reciprocate_message = activity.reciprocate_message
-    json.acknowledge_message = activity.acknowledge_message
+    json.reciprocate_message activity.reciprocate_message
+    json.acknowledge_message activity.acknowledge_message
   end
 
   json.message do
