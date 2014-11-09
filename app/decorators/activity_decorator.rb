@@ -22,7 +22,7 @@ class ActivityDecorator < Draper::Decorator
   end
 
   def reciprocate_message
-    unacknowledged_message_for_sender
+    unacknowledged_message_for_sender_reciprocation
   end
 
   def acknowledge_message
@@ -45,5 +45,9 @@ class ActivityDecorator < Draper::Decorator
 
   def unacknowledged_message_for_recipient
     "#{ message.sender.first_name } wants to #{ message.verb } you." # present
+  end
+
+  def unacknowledged_message_for_sender_reciprocation
+    "You tried to #{ message.verb } #{ message.sender.first_name }." # present
   end
 end
