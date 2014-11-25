@@ -1,10 +1,32 @@
 ---
-# List of verbs by categories.
-friendly:
-  - poke
-  - hug
-  - nudge
-mean:
-  - smack
-weird:
-  - smell
+# List of verbs by category
+- name: Friendly
+  icon: 🙂
+  verbs:
+  - {verb: poke, name: Poke, icon: null}
+  - {verb: congratulate, name: Congratulate, icon: null}
+  - {verb: nudge, name: Nudge, icon: null}
+- name: Flirt
+  icon: 😉
+  verbs:
+  - {verb: tickle, name: Tickle, icon: null}
+  - {verb: touch, name: Touch, icon: null}
+- name: Love
+  icon: 😘
+  verbs:
+  - {verb: caress, name: Caress, icon: null}
+  - {verb: hug, name: Hug, icon: null}
+  - {verb: kiss, name: Kiss, icon: null}
+- name: Mean
+  icon: 😈
+  verbs:
+  - {verb: smack, name: Smack, icon: null}
+  - {verb: punch, name: Punch, icon: null}
+  - {verb: kick, name: Kick, icon: null}
+  - {verb: slap, name: Slap, icon: null}
+- name: Weird
+  icon: 😶
+  verbs:
+  - {verb: smell, name: Smell, icon: null}
+  - {verb: taste, name: Taste, icon: null}
+  - {verb: lick, name: Lick, icon: null}
