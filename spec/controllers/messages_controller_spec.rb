@@ -93,6 +93,21 @@ RSpec.describe MessagesController, type: :controller do
     end
   end
 
+  describe 'GET acknowledge' do
+    it 'assigns the requested message as @message' do
+      message = Message.create! valid_sender_attributes
+      get :acknowledge, { id: message.to_param }, valid_session
+      expect(assigns(:message)).to eq(message)
+    end
+  end
+
+  describe 'GET reciprocate' do
+    it 'returns a new message' do
+      message = Message.create! valid_sender_attributes
+      expect { get :reciprocate, { id: message.to_param }, valid_session }.to change(Message, :count).by(1)
+    end
+  end
+
   describe 'POST create' do
     describe 'with valid params' do
       it 'creates a new Message' do
