@@ -3,6 +3,8 @@ Verb API
 
 [![Build Status](https://travis-ci.org/JonathanPorta/verb-api.svg?branch=master)](https://travis-ci.org/JonathanPorta/verb-api)
 [![Coverage Status](https://coveralls.io/repos/JonathanPorta/verb-api/badge.png)](https://coveralls.io/r/JonathanPorta/verb-api)
+[![Code Climate](https://codeclimate.com/github/JonathanPorta/verb-api/badges/gpa.svg)](https://codeclimate.com/github/JonathanPorta/verb-api)
+[![Dependency Status](https://gemnasium.com/JonathanPorta/verb-api.svg)](https://gemnasium.com/JonathanPorta/verb-api)
 
 Server       | Watch/LiveReload/Tests/Lint
 -------------|----------------------------
