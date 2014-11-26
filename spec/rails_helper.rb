@@ -1,4 +1,7 @@
+# report all of the covers!
+require 'codeclimate-test-reporter'
 require 'coveralls'
+CodeClimate::TestReporter.start
 Coveralls.wear!
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
