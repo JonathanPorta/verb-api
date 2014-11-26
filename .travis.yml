@@ -1,7 +1,8 @@
 language: ruby
+sudo: false
 rvm:
 - 2.1.2
-bundler_args: --retry 5
+bundler_args: "--retry 5"
 addons:
   postgresql: '9.3'
 before_install:
@@ -16,6 +17,13 @@ before_script:
 script:
 - bundle exec rake
 - bundle exec rubocop
+after_success:
+- ./scripts/gemnasium.sh
 notifications:
   slack:
     secure: ok4VxHIJUgOdgRjidmqB8rVmmCUzuUOn4QQh6afJguC3M5WxUGH8/mU6k9D1N8HB7It3aohfRNNmtySMgUSPG1vNiLnXx79nDsnRQK6OK6Ljae6ByEiQA5oiDgTxAeyH9lX+cZ+3ZyEsgdFNDhnHOlD4A4zM2ZcWss1rJVODULo=
+env:
+- GEMNASIUM_TESTSUITE="bundle exec rake"
+- GEMNASIUM_PROJECT_SLUG="JonathanPorta/verb-api"
+  global:
+    secure: mLERoAHNkUOCjULcWO91ss3Nq/Mq9OafBCfdFlqKe6nA+ziGuZbWEmESawldGdzYOFG1B4wtYr8hPD+urvK7l9s7uT1AyhQiGrcQr9iHBbku6adcSI/1TFX18A/qmjVerIk5Tw7qsfG494VQDxO+Ca7zsvi0+DTXVYz1vxUE+K0=
