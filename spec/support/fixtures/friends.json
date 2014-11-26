@@ -1,0 +1,18 @@
+{
+   "data": [
+      {
+         "name": "Bob Tester",
+         "id": "123456789fake"
+      },
+      {
+         "name": "Jon Tester",
+         "id": "987654321fake"
+      }
+   ],
+   "paging": {
+      "next": "https://graph.facebook.com"
+   },
+   "summary": {
+      "total_count": 78
+   }
+}
