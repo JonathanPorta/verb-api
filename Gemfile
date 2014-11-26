@@ -42,6 +42,7 @@ group :test do
   gem 'timecop'
   gem 'webmock'
   gem 'sinatra'
+  gem "codeclimate-test-reporter", group: :test, require: nil
 end
 
 group :development, :test do
