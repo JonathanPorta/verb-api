@@ -25,11 +25,7 @@ RSpec.describe 'messages/edit', type: :view do
     render
 
     assert_select 'form[action=?][method=?]', message_path(@message), 'post' do
-
-      assert_select 'input#message_sender_id[name=?]', 'message[sender_id]'
-
       assert_select 'input#message_recipient_id[name=?]', 'message[recipient_id]'
-
       assert_select 'textarea#message_verb[name=?]', 'message[verb]'
     end
   end
