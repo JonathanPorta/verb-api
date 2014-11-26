@@ -12,7 +12,7 @@ class ActivityDecorator < Draper::Decorator
       else
         unacknowledged_message_for_sender
       end
-    elsif object.type == 'received'
+    else
       if message.acknowledged_at
         acknowledged_message_for_recipient
       else

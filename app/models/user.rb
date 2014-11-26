@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
     graph = Koala::Facebook::API.new(facebook_token)
     friends = graph.get_connections('me', 'friends')
 
-    friends.inject([]) do |app_friends, friend|
+    friends.each_with_object([]) do |app_friends, friend|
       facebook_friend = User.from_facebook(friend)
       app_friends.push(facebook_friend) if facebook_friend
       app_friends
