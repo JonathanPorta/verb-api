@@ -41,6 +41,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'timecop'
   gem 'webmock'
+  gem 'sinatra'
 end
 
 group :development, :test do
