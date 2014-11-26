@@ -3,30 +3,65 @@
 - name: Friendly
   icon: 🙂
   verbs:
-  - {verb: poke, name: Poke, icon: null}
+  - {verb: poke,         name: Poke, icon: null}
   - {verb: congratulate, name: Congratulate, icon: null}
-  - {verb: nudge, name: Nudge, icon: null}
+  - {verb: nudge,        name: Nudge, icon: null}
+  - {verb: highfive,     name: Highfive, icon: null}
+  - {verb: bless,        name: Bless, icon: null}
+  - {verb: fistbump,     name: Fistbump, icon: null}
+  - {verb: challenge,    name: Challenge, icon: null}
+  - {verb: forgive,      name: Forgive, icon: null}
+  - {verb: mentor,       name: Mentor, icon: null}
+  - {verb: persuade,     name: Persuade, icon: null}
+  - {verb: recognize,    name: Recognize, icon: null}
+  - {verb: remember,     name: Remember, icon: null}
+  - {verb: support,      name: Support, icon: null}
 - name: Flirt
   icon: 😉
   verbs:
-  - {verb: tickle, name: Tickle, icon: null}
-  - {verb: touch, name: Touch, icon: null}
+  - {verb: tickle,   name: Tickle, icon: null}
+  - {verb: touch,    name: Touch, icon: null}
+  - {verb: bang,     name: Bang, icon: null}
+  - {verb: chase,    name: Chase, icon: null}
+  - {verb: admire,   name: Admire, icon: null}
+  - {verb: amuse,    name: Amuse, icon: null}
+  - {verb: carry,    name: Carry, icon: null}
+  - {verb: miss,     name: Miss, icon: null}
+  - {verb: notice,   name: Notice, icon: null}
+  - {verb: protect,  name: Protect, icon: null}
+  - {verb: rub,      name: Rub, icon: null}
+  - {verb: surprise, name: Surprise, icon: null}
 - name: Love
   icon: 😘
   verbs:
-  - {verb: caress, name: Caress, icon: null}
-  - {verb: hug, name: Hug, icon: null}
-  - {verb: kiss, name: Kiss, icon: null}
+  - {verb: caress,  name: Caress, icon: null}
+  - {verb: hug,     name: Hug, icon: null}
+  - {verb: kiss,    name: Kiss, icon: null}
+  - {verb: delight, name: Delight, icon: null}
+  - {verb: love,    name: Love, icon: null}
 - name: Mean
   icon: 😈
   verbs:
-  - {verb: smack, name: Smack, icon: null}
-  - {verb: punch, name: Punch, icon: null}
-  - {verb: kick, name: Kick, icon: null}
-  - {verb: slap, name: Slap, icon: null}
+  - {verb: smack,     name: Smack, icon: null}
+  - {verb: punch,     name: Punch, icon: null}
+  - {verb: kick,      name: Kick, icon: null}
+  - {verb: slap,      name: Slap, icon: null}
+  - {verb: annoy,     name: Annoy, icon: null}
+  - {verb: bite,      name: Bite, icon: null}
+  - {verb: bruise,    name: Bruise, icon: null}
+  - {verb: embarrass, name: Embarrass, icon: null}
+  - {verb: fight,     name: Fight, icon: null}
+  - {verb: harass,    name: Harass, icon: null}
+  - {verb: mislead,   name: Mislead, icon: null}
+  - {verb: mug,       name: Mug, icon: null}
+  - {verb: scare,     name: Scare, icon: null}
+  - {verb: scold,     name: Scold, icon: null}
 - name: Weird
   icon: 😶
   verbs:
-  - {verb: smell, name: Smell, icon: null}
-  - {verb: taste, name: Taste, icon: null}
-  - {verb: lick, name: Lick, icon: null}
+  - {verb: smell,    name: Smell, icon: null}
+  - {verb: lick,     name: Lick, icon: null}
+  - {verb: scratch,  name: Scratch, icon: null}
+  - {verb: confront, name: Confront, icon: null}
+  - {verb: judge,    name: Judge, icon: null}
+  - {verb: measure,  name: Measure, icon: null}
