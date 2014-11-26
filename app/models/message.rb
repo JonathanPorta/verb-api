@@ -25,6 +25,7 @@ class Message < ActiveRecord::Base
 
   def acknowledge
     update acknowledged_at: Time.now
+    notify_acknowledgement
     Librato.increment 'messages.acknowledged'
   end
 
@@ -38,5 +39,15 @@ class Message < ActiveRecord::Base
 
   def create_activity_entries
     Activity.activities_for_message self
+  end
+
+  # Notify sender that message was ack'd
+  def notify_acknowledgement
+    message = sender_activity.decorate.activity_message
+    logger.info "Preparing to send acknowledgment push notification of #{ message } to sender: #{ sender.id }"
+
+    sender.devices.each do |device|
+      device.notify message
+    end
   end
 end
