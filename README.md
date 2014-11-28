@@ -16,9 +16,7 @@ First-time install
 ------------------
 
 Install system dependencies:
-* Ruby/Bundler (probably via RVM)
-* Postgres
-* PhantomJS
+* bundle install
 
 Then install the application:
 
