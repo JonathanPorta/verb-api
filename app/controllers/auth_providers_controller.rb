@@ -62,13 +62,14 @@ class AuthProvidersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_auth_provider
-      @auth_provider = AuthProvider.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def auth_provider_params
-      params.require(:auth_provider).permit(:user_id, :provider, :uid, :nickname, :token, :secret, :token_expiration, :last_used)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_auth_provider
+    @auth_provider = AuthProvider.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def auth_provider_params
+    params.require(:auth_provider).permit(:user_id, :provider, :uid, :nickname, :token, :secret, :token_expiration, :last_used)
+  end
 end
