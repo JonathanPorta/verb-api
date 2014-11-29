@@ -4,10 +4,10 @@ class User < ActiveRecord::Base
   has_many :messages, through: :activities
 
   has_many :friendships
-  has_many :friends, -> { where.not(friendships: {approved: nil}) }, through: :friendships
+  has_many :friends, -> { where.not(friendships: { approved: nil }) }, through: :friendships
 
   has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
-  has_many :inverse_friends, -> { where.not(friendships: {approved: nil}) }, through: :inverse_friendships, source: :user
+  has_many :inverse_friends, -> { where.not(friendships: { approved: nil }) }, through: :inverse_friendships, source: :user
 
   validates :email, :first_name, :last_name, presence: true
   validates :id, absence: true, on: :create
