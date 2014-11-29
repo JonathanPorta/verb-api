@@ -3,6 +3,12 @@ class User < ActiveRecord::Base
   has_many :activities
   has_many :messages, through: :activities
 
+  has_many :friendships
+  has_many :friends, -> { where.not(friendships: {approved: nil}) }, through: :friendships
+
+  has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
+  has_many :inverse_friends, -> { where.not(friendships: {approved: nil}) }, through: :inverse_friendships, source: :user
+
   validates :email, :first_name, :last_name, presence: true
   validates :id, absence: true, on: :create
 
@@ -40,16 +46,15 @@ class User < ActiveRecord::Base
     where(facebook_id: user_hash['id']).first
   end
 
-  def friends
-    graph = Koala::Facebook::API.new(facebook_token)
-    friends = graph.get_connections('me', 'friends')
+  def all_friends
+    friends + inverse_friends
+  end
 
-    user_friends = []
-    friends.each do |friend|
-      logger.debug friend
-      facebook_friend = User.from_facebook(friend)
-      user_friends.push(facebook_friend) if facebook_friend
-    end
-    user_friends
+  def friendship_requests_sent
+    friendships.where approved: nil
+  end
+
+  def friendship_requests_received
+    inverse_friendships.where approved: nil
   end
 end
