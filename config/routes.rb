@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :auth_providers
+
   get 'friendships/requests' => 'friendships#requests', format: 'json'
   get 'friendships/requested' => 'friendships#requested', format: 'json'
   get 'friendships/:id/accept' => 'friendships#accept', format: 'json'

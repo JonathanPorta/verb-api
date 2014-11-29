@@ -29,7 +29,7 @@ RSpec.describe User, type: :model do
       expect { @user = User.from_omniauth @user_hash }.to change(User, :count).by(0)
       expect(@user).to be_a(User)
       expect(@user).to be_persisted
-      expect(@user.facebook_token).to eq('newandevenmorefaketoken')
+      expect(@user.auth_providers.where(provider: 'facebook').first.token).to eq('newandevenmorefaketoken')
     end
   end
 end

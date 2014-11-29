@@ -1,0 +1,49 @@
+<%= form_for(@auth_provider) do |f| %>
+  <% if @auth_provider.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@auth_provider.errors.count, "error") %> prohibited this auth_provider from being saved:</h2>
+
+      <ul>
+      <% @auth_provider.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :provider %><br>
+    <%= f.text_field :provider %>
+  </div>
+  <div class="field">
+    <%= f.label :uid %><br>
+    <%= f.text_field :uid %>
+  </div>
+  <div class="field">
+    <%= f.label :nickname %><br>
+    <%= f.text_field :nickname %>
+  </div>
+  <div class="field">
+    <%= f.label :token %><br>
+    <%= f.text_field :token %>
+  </div>
+  <div class="field">
+    <%= f.label :secret %><br>
+    <%= f.text_field :secret %>
+  </div>
+  <div class="field">
+    <%= f.label :token_expiration %><br>
+    <%= f.datetime_select :token_expiration %>
+  </div>
+  <div class="field">
+    <%= f.label :last_used %><br>
+    <%= f.datetime_select :last_used %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
