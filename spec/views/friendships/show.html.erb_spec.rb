@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe "friendships/show", :type => :view do
+RSpec.describe "friendships/show", type: :view do
   before(:each) do
     @friendship = assign(:friendship, Friendship.create!(
-      :user_id => 1,
-      :friend_id => 2
+      user_id: 1,
+      friend_id: 2
     ))
   end
 
