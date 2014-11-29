@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe "auth_providers/new", :type => :view do
+RSpec.describe "auth_providers/new", type: :view do
   before(:each) do
     assign(:auth_provider, AuthProvider.new(
-      :user_id => 1,
-      :provider => "MyString",
-      :uid => "MyString",
-      :nickname => "MyString",
-      :token => "MyString",
-      :secret => "MyString"
+      user_id: 1,
+      provider: "MyString",
+      uid: "MyString",
+      nickname: "MyString",
+      token: "MyString",
+      secret: "MyString"
     ))
   end
 

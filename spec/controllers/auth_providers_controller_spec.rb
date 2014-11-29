@@ -18,7 +18,7 @@ require 'rails_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-RSpec.describe AuthProvidersController, :type => :controller do
+RSpec.describe AuthProvidersController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
   # AuthProvider. As you add validations to AuthProvider, be sure to
@@ -47,7 +47,7 @@ RSpec.describe AuthProvidersController, :type => :controller do
   describe "GET show" do
     it "assigns the requested auth_provider as @auth_provider" do
       auth_provider = AuthProvider.create! valid_attributes
-      get :show, {:id => auth_provider.to_param}, valid_session
+      get :show, {id: auth_provider.to_param}, valid_session
       expect(assigns(:auth_provider)).to eq(auth_provider)
     end
   end
@@ -62,7 +62,7 @@ RSpec.describe AuthProvidersController, :type => :controller do
   describe "GET edit" do
     it "assigns the requested auth_provider as @auth_provider" do
       auth_provider = AuthProvider.create! valid_attributes
-      get :edit, {:id => auth_provider.to_param}, valid_session
+      get :edit, {id: auth_provider.to_param}, valid_session
       expect(assigns(:auth_provider)).to eq(auth_provider)
     end
   end
@@ -71,30 +71,30 @@ RSpec.describe AuthProvidersController, :type => :controller do
     describe "with valid params" do
       it "creates a new AuthProvider" do
         expect {
-          post :create, {:auth_provider => valid_attributes}, valid_session
+          post :create, {auth_provider: valid_attributes}, valid_session
         }.to change(AuthProvider, :count).by(1)
       end
 
       it "assigns a newly created auth_provider as @auth_provider" do
-        post :create, {:auth_provider => valid_attributes}, valid_session
+        post :create, {auth_provider: valid_attributes}, valid_session
         expect(assigns(:auth_provider)).to be_a(AuthProvider)
         expect(assigns(:auth_provider)).to be_persisted
       end
 
       it "redirects to the created auth_provider" do
-        post :create, {:auth_provider => valid_attributes}, valid_session
+        post :create, {auth_provider: valid_attributes}, valid_session
         expect(response).to redirect_to(AuthProvider.last)
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved auth_provider as @auth_provider" do
-        post :create, {:auth_provider => invalid_attributes}, valid_session
+        post :create, {auth_provider: invalid_attributes}, valid_session
         expect(assigns(:auth_provider)).to be_a_new(AuthProvider)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:auth_provider => invalid_attributes}, valid_session
+        post :create, {auth_provider: invalid_attributes}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -108,20 +108,20 @@ RSpec.describe AuthProvidersController, :type => :controller do
 
       it "updates the requested auth_provider" do
         auth_provider = AuthProvider.create! valid_attributes
-        put :update, {:id => auth_provider.to_param, :auth_provider => new_attributes}, valid_session
+        put :update, {id: auth_provider.to_param, auth_provider: new_attributes}, valid_session
         auth_provider.reload
         skip("Add assertions for updated state")
       end
 
       it "assigns the requested auth_provider as @auth_provider" do
         auth_provider = AuthProvider.create! valid_attributes
-        put :update, {:id => auth_provider.to_param, :auth_provider => valid_attributes}, valid_session
+        put :update, {id: auth_provider.to_param, auth_provider: valid_attributes}, valid_session
         expect(assigns(:auth_provider)).to eq(auth_provider)
       end
 
       it "redirects to the auth_provider" do
         auth_provider = AuthProvider.create! valid_attributes
-        put :update, {:id => auth_provider.to_param, :auth_provider => valid_attributes}, valid_session
+        put :update, {id: auth_provider.to_param, auth_provider: valid_attributes}, valid_session
         expect(response).to redirect_to(auth_provider)
       end
     end
@@ -129,13 +129,13 @@ RSpec.describe AuthProvidersController, :type => :controller do
     describe "with invalid params" do
       it "assigns the auth_provider as @auth_provider" do
         auth_provider = AuthProvider.create! valid_attributes
-        put :update, {:id => auth_provider.to_param, :auth_provider => invalid_attributes}, valid_session
+        put :update, {id: auth_provider.to_param, auth_provider: invalid_attributes}, valid_session
         expect(assigns(:auth_provider)).to eq(auth_provider)
       end
 
       it "re-renders the 'edit' template" do
         auth_provider = AuthProvider.create! valid_attributes
-        put :update, {:id => auth_provider.to_param, :auth_provider => invalid_attributes}, valid_session
+        put :update, {id: auth_provider.to_param, auth_provider: invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -145,13 +145,13 @@ RSpec.describe AuthProvidersController, :type => :controller do
     it "destroys the requested auth_provider" do
       auth_provider = AuthProvider.create! valid_attributes
       expect {
-        delete :destroy, {:id => auth_provider.to_param}, valid_session
+        delete :destroy, {id: auth_provider.to_param}, valid_session
       }.to change(AuthProvider, :count).by(-1)
     end
 
     it "redirects to the auth_providers list" do
       auth_provider = AuthProvider.create! valid_attributes
-      delete :destroy, {:id => auth_provider.to_param}, valid_session
+      delete :destroy, {id: auth_provider.to_param}, valid_session
       expect(response).to redirect_to(auth_providers_url)
     end
   end
