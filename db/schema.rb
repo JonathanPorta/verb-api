@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141129095747) do
+ActiveRecord::Schema.define(version: 20141129163145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,22 @@ ActiveRecord::Schema.define(version: 20141129095747) do
     t.datetime "updated_at"
     t.string   "type"
   end
+
+  create_table "auth_providers", force: true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "nickname"
+    t.string   "token"
+    t.string   "secret"
+    t.datetime "token_expiration"
+    t.datetime "last_used"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "auth_providers", ["provider"], name: "index_auth_providers_on_provider", using: :btree
+  add_index "auth_providers", ["uid"], name: "index_auth_providers_on_uid", using: :btree
 
   create_table "devices", force: true do |t|
     t.integer  "user_id"
@@ -65,17 +81,12 @@ ActiveRecord::Schema.define(version: 20141129095747) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "facebook_id"
     t.string   "email"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "birthday"
-    t.string   "facebook_token"
-    t.datetime "facebook_token_expires_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "users", ["facebook_id"], name: "index_users_on_facebook_id", unique: true, using: :btree
 
 end

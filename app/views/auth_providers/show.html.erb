@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @auth_provider.user_id %>
+</p>
+
+<p>
+  <strong>Provider:</strong>
+  <%= @auth_provider.provider %>
+</p>
+
+<p>
+  <strong>Uid:</strong>
+  <%= @auth_provider.uid %>
+</p>
+
+<p>
+  <strong>Nickname:</strong>
+  <%= @auth_provider.nickname %>
+</p>
+
+<p>
+  <strong>Token:</strong>
+  <%= @auth_provider.token %>
+</p>
+
+<p>
+  <strong>Secret:</strong>
+  <%= @auth_provider.secret %>
+</p>
+
+<p>
+  <strong>Token expiration:</strong>
+  <%= @auth_provider.token_expiration %>
+</p>
+
+<p>
+  <strong>Last used:</strong>
+  <%= @auth_provider.last_used %>
+</p>
+
+<%= link_to 'Edit', edit_auth_provider_path(@auth_provider) %> |
+<%= link_to 'Back', auth_providers_path %>

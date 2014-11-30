@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id'
   has_many :inverse_friends, -> { where.not(friendships: { approved: nil }) }, through: :inverse_friendships, source: :user
 
+  has_many :auth_providers
+
   validates :email, :first_name, :last_name, presence: true
   validates :id, absence: true, on: :create
 
@@ -17,33 +19,40 @@ class User < ActiveRecord::Base
   end
 
   def self.from_omniauth(auth)
-    authed_user = where(facebook_id: auth.uid).first_or_initialize.tap do |user|
-      user.facebook_id = auth.uid
-      user.facebook_token = auth.credentials.token
-      user.facebook_token_expires_at = Time.at(auth.credentials.expires_at) if auth.credentials.expires_at
+    auth_provider = AuthProvider.from_omniauth auth
 
-      user.email = auth.info.email
-      user.first_name = auth.info.first_name
-      user.last_name = auth.info.last_name
-      user.birthday = auth.extra.raw_info.birthday
-
-      user.save!
-
-      Librato.increment 'users.signup'
+    if auth_provider.user
+      user = auth_provider.user
+    else
+      user = User.new
     end
 
-    # Ensure auth token is up to date.
-    if authed_user.facebook_token != auth.credentials.token
-      logger.warn 'Updating user FB auth token'
-      authed_user.facebook_token = auth.credentials.token
-      authed_user.save!
-    end
+    user.email = auth.info.email
+    user.first_name = auth.info.first_name
+    user.last_name = auth.info.last_name
+    user.birthday = auth.extra.raw_info.birthday
 
-    authed_user
+    user.save!
+    auth_provider.update user: user
+    user
   end
 
   def self.from_facebook(user_hash)
-    where(facebook_id: user_hash['id']).first
+    facebook_auth_provider = AuthProvider.where(provider: 'facebook', uid: user_hash['id']).first
+    facebook_auth_provider.user if facebook_auth_provider
+  end
+
+  def facebook_connections
+    facebook_auth_provider = auth_providers.where(provider: 'facebook').first
+    graph = Koala::Facebook::API.new(facebook_auth_provider.token)
+    friends = graph.get_connections('me', 'friends')
+
+    user_friends = []
+    friends.each do |friend|
+      facebook_friend = User.from_facebook(friend)
+      user_friends.push(facebook_friend) if facebook_friend
+    end
+    user_friends
   end
 
   def all_friends
@@ -56,5 +65,9 @@ class User < ActiveRecord::Base
 
   def friendship_requests_received
     inverse_friendships.where approved: nil
+  end
+
+  def self.are_friends(user1, user2)
+    user1.all_friends.include? user2
   end
 end
