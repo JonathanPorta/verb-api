@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  get 'friendships/requests' => 'friendships#requests', format: 'json'
+  get 'friendships/requested' => 'friendships#requested', format: 'json'
+  get 'friendships/:id/accept' => 'friendships#accept', format: 'json'
+  resources :friendships
+
   post 'devices/' => 'devices#create', format: 'json'
 
   get 'friends/' => 'friends#index', format: 'json'
