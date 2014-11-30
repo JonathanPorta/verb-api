@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
       @current_user ||= User.find(session[:user_id]) if session[:user_id]
     elsif request.headers['HTTP_ACCESS_TOKEN']
       logger.warn 'Getting user because request had an access token.'
-      @urrent_user ||= User.find_by facebook_token: request.headers['HTTP_ACCESS_TOKEN']
+      @urrent_user ||= User.find_by_access_token request.headers['HTTP_ACCESS_TOKEN']
     end
 
   rescue ActiveRecord::RecordNotFound => e

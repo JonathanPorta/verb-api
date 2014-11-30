@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :auth_provider do
-    user_id 1
-    provider 'MyString'
+    user
+    provider 'facebook'
     uid 'MyString'
     nickname 'MyString'
     token 'MyString'

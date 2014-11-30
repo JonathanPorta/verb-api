@@ -18,6 +18,12 @@ class User < ActiveRecord::Base
     Librato.measure 'users.count', User.count, sporadic: true
   end
 
+  def self.find_by_access_token(token)
+    # TODO: Fix this when verb authprovider gets implemented
+    auth_provider = AuthProvider.where(provider: 'facebook', token: token).first
+    auth_provider.user if auth_provider
+  end
+
   def self.from_omniauth(auth)
     auth_provider = AuthProvider.from_omniauth auth
 
