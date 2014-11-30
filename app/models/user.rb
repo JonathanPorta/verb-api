@@ -38,7 +38,21 @@ class User < ActiveRecord::Base
   end
 
   def self.from_facebook(user_hash)
-    where(facebook_id: user_hash['id']).first
+    facebook_auth_provider = AuthProvider.where(provider: 'facebook', uid: user_hash['id']).first
+    facebook_auth_provider.user if facebook_auth_provider
+  end
+
+  def facebook_connections
+    facebook_auth_provider = auth_providers.where(provider: 'facebook').first
+    graph = Koala::Facebook::API.new(facebook_auth_provider.token)
+    friends = graph.get_connections('me', 'friends')
+
+    user_friends = []
+    friends.each do |friend|
+      facebook_friend = User.from_facebook(friend)
+      user_friends.push(facebook_friend) if facebook_friend
+    end
+    user_friends
   end
 
   def all_friends
@@ -51,5 +65,9 @@ class User < ActiveRecord::Base
 
   def friendship_requests_received
     inverse_friendships.where approved: nil
+  end
+
+  def self.are_friends(user1, user2)
+    user1.all_friends.include? user2
   end
 end
