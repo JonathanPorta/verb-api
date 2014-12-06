@@ -2,9 +2,9 @@ class Message < ActiveRecord::Base
   belongs_to :sender, class_name: 'User'
   belongs_to :recipient, class_name: 'User'
 
-  has_many :activities, dependent: :destroy
-  has_one :sender_activity, ->(message) { where type: 'sent', message_id: message.id }, class_name: 'Activity'
-  has_one :recipient_activity, ->(message) { where type: 'received', message_id: message.id }, class_name: 'Activity'
+  has_many :activities, as: :actionable, dependent: :destroy
+  has_one :sender_activity, ->(message) { where type: 'sent', actionable_id: message.id, actionable_type: 'Message' }, class_name: 'Activity'
+  has_one :recipient_activity, ->(message) { where type: 'received', actionable_id: message.id, actionable_type: 'Message' }, class_name: 'Activity'
 
   after_create :create_activity_entries
   after_save do
@@ -43,11 +43,11 @@ class Message < ActiveRecord::Base
 
   # Notify sender that message was ack'd
   def notify_acknowledgement
-    message = sender_activity.decorate.activity_message
-    logger.info "Preparing to send acknowledgment push notification of #{ message } to sender: #{ sender.id }"
-
-    sender.devices.each do |device|
-      device.notify message
-    end
+    # message = sender_activity.decorate.activity_message
+    # logger.info "Preparing to send acknowledgment push notification of #{ message } to sender: #{ sender.id }"
+    #
+    # sender.devices.each do |device|
+    #   device.notify message
+    # end
   end
 end

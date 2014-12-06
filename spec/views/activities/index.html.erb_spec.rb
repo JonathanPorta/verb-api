@@ -17,6 +17,6 @@ RSpec.describe 'activities/index', type: :view do
 
   it 'renders a list of activities' do
     render
-    assert_select 'tr>td', text: 'sent'.to_s, count: 1
+    expect(rendered).to match(/sent/)
   end
 end
