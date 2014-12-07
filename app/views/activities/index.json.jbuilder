@@ -7,8 +7,13 @@ json.array!(@activities) do |activity|
     json.acknowledge_message activity.acknowledge_message
   end
 
-  json.message do
-    # Sadly, this step is needed because extract doesn't find the at_in_words methods from the decorator.
-    json.extract! activity.message, :id, :verb, :sender, :recipient, :acknowledged_at, :acknowledged_at_in_words, :created_at, :created_at_in_words
+  json.actionable do
+    if activity.actionable_type == 'Message'
+      json.extract! activity.actionable, :id, :verb, :sender, :recipient, :acknowledged_at, :acknowledged_at_in_words, :created_at, :created_at_in_words
+    else
+      json.extract! activity.actionable, :id, :user, :friend, :acknowledged_at, :acknowledged_at_in_words, :created_at, :created_at_in_words
+    end
+
+    json.type activity.actionable_type
   end
 end

@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   has_many :devices
   has_many :activities
-  has_many :messages, through: :activities
+  has_many :messages
 
   has_many :friendships
   has_many :friends, -> { where.not(friendships: { approved: nil }) }, through: :friendships

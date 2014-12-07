@@ -25,6 +25,34 @@ class MessageDecorator < Draper::Decorator
   end
 
   def conjugate_verb(tense, aspect)
-    Verbs::Conjugator.conjugate "#{ object.verb }", tense: tense, aspect: aspect
+    Verbs::Conjugator.conjugate "#{ verb }", tense: tense, aspect: aspect
+  end
+
+  def reciprocate_message
+    unacknowledged_message_for_sender_reciprocation
+  end
+
+  def acknowledge_message
+    acknowledged_message_for_recipient
+  end
+
+  def acknowledged_message_for_sender
+    "You #{ conjugate_verb(:past, :perfective) } #{ recipient.first_name }." # past tense
+  end
+
+  def acknowledged_message_for_recipient
+    "#{ sender.first_name } #{ conjugate_verb(:past, :perfective) } you." # past tense
+  end
+
+  def unacknowledged_message_for_sender
+    "You tried to #{ verb } #{ recipient.first_name }." # present
+  end
+
+  def unacknowledged_message_for_recipient
+    "#{ sender.first_name } wants to #{ verb } you." # present
+  end
+
+  def unacknowledged_message_for_sender_reciprocation
+    "You tried to #{ verb } #{ sender.first_name }." # present
   end
 end

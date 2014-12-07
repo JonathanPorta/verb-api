@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get 'friends/facebook' => 'friends#facebook', format: 'json'
   get 'friends/' => 'friends#index', format: 'json'
   get 'verbs' => 'verbs#index', format: 'json'
-  resources :activities
+  get 'activities/' => 'activities#index', format: 'json'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

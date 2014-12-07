@@ -11,17 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141129163145) do
+ActiveRecord::Schema.define(version: 20141206021950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
-    t.integer  "message_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "type"
+    t.integer  "actionable_id"
+    t.string   "actionable_type"
   end
 
   create_table "auth_providers", force: true do |t|
@@ -48,17 +49,6 @@ ActiveRecord::Schema.define(version: 20141129163145) do
   end
 
   add_index "devices", ["token"], name: "index_devices_on_token", unique: true, using: :btree
-
-  create_table "friends", force: true do |t|
-    t.integer  "from_user"
-    t.integer  "to_user"
-    t.datetime "approved"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "friends", ["from_user"], name: "index_friends_on_from_user", using: :btree
-  add_index "friends", ["to_user"], name: "index_friends_on_to_user", using: :btree
 
   create_table "friendships", force: true do |t|
     t.integer  "user_id"
