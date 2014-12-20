@@ -72,8 +72,4 @@ class User < ActiveRecord::Base
   def friendship_requests_received
     inverse_friendships.where approved: nil
   end
-
-  def self.are_friends(user1, user2)
-    user1.all_friends.include? user2
-  end
 end

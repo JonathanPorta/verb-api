@@ -1,5 +1,7 @@
-json.array!(@friends) do |user|
-  user = UserDecorator.new user
-  json.extract! user, :id, :name, :first_name, :last_name, :email
-  json.is_friend User.are_friends current_user, user
+json.array!(@friends) do |friend|
+  friend = UserDecorator.new friend
+  user = UserDecorator.new current_user
+
+  json.extract! friend, :id, :name, :first_name, :last_name, :email
+  json.relationship user.relationship(friend)
 end

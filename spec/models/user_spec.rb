@@ -32,4 +32,49 @@ RSpec.describe User, type: :model do
       expect(@user.auth_providers.where(provider: 'facebook').first.token).to eq('newandevenmorefaketoken')
     end
   end
+
+  describe 'Friend functions work as expected' do
+    before :each do
+      @user = FactoryGirl.create :user
+      @friend = FactoryGirl.create :user
+    end
+
+    it 'Allows a user to view their sent, unaccepted friendship requests' do
+      expect { @friendship = Friendship.create user: @user, friend: @friend }.to change(Friendship, :count).by(1)
+      expect(@friendship).to be_a(Friendship)
+      expect(@friendship).to be_persisted
+      expect(@friendship.approved).to be_nil
+
+      expect(@user.friendship_requests_sent.count).to eq(1)
+      expect(@user.friendship_requests_sent.first).to be_a(Friendship)
+
+      expect(@user.friendship_requests_sent.first).to eq(@friendship)
+    end
+
+    it 'Allows a user in receipt of a friend request to see those requests' do
+      expect { @friendship = Friendship.create user: @friend, friend: @user }.to change(Friendship, :count).by(1)
+      expect(@friendship).to be_a(Friendship)
+      expect(@friendship).to be_persisted
+      expect(@friendship.approved).to be_nil
+
+      expect(@user.friendship_requests_received.count).to eq(1)
+      expect(@user.friendship_requests_received.first).to be_a(Friendship)
+
+      expect(@user.friendship_requests_received.first).to eq(@friendship)
+    end
+
+    it 'Allows a user to see friends, once the relationships have been accepted' do
+      expect { @friendship = Friendship.create user: @user, friend: @friend }.to change(Friendship, :count).by(1)
+      expect(@friendship).to be_a(Friendship)
+      expect(@friendship).to be_persisted
+      expect(@friendship.approved).to be_falsey
+
+      # Accept the friendship request
+      @friendship.accept
+
+      # We should have one friend!
+      expect(@user.all_friends.count).to eq(1)
+      expect(@user.friends.first).to eq(@friend)
+    end
+  end
 end
