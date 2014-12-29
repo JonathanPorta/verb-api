@@ -31,19 +31,19 @@ class FriendshipDecorator < Draper::Decorator
   end
 
   def acknowledged_message_for_sender
-    "#{ friend.first_name } accepted your friendship."
+    "You became friends with #{ friend.first_name }."
   end
 
   def acknowledged_message_for_recipient
-    "You accepted #{ user.first_name } friendship." # past tense
+    "You became friends with #{ user.first_name }." # past tense
   end
 
   def unacknowledged_message_for_sender
-    "You offered friendship to #{ friend.first_name }." # present
+    "You sent #{ friend.first_name } a friend request." # present
   end
 
   def unacknowledged_message_for_recipient
-    "#{ user.first_name } offers friendship." # present
+    "#{ user.first_name } sent you a friend request." # present
   end
 
   def unacknowledged_message_for_sender_reciprocation

@@ -94,16 +94,16 @@ describe ActivityDecorator do
     end
 
     it 'provides correct acknowledge activity message if recipient were to acknowledge' do
-      expect(@recipient.activities.first.decorate.acknowledge_message).to eq("You accepted #{ @sender.first_name } friendship.")
+      expect(@recipient.activities.first.decorate.acknowledge_message).to eq("You became friends with #{ @sender.first_name }.")
     end
 
     it 'provides correct activity message for sender when friendship is unacknowledged' do
-      expect(@sender.activities.first.decorate.activity_message).to eq("You offered friendship to #{ @recipient.first_name }.")
+      expect(@sender.activities.first.decorate.activity_message).to eq("You sent #{ @recipient.first_name } a friend request.")
     end
 
     it 'provides correct activity message for sender when friendship is acknowledged' do
       @friendship.accept
-      expect(@sender.activities.first.decorate.activity_message).to eq("#{ @recipient.first_name } accepted your friendship.")
+      expect(@sender.activities.first.decorate.activity_message).to eq("You became friends with #{ @recipient.first_name }.")
     end
   end
 
@@ -127,12 +127,12 @@ describe ActivityDecorator do
     end
 
     it 'provides correct activity message for recipient when friendship is unacknowledged' do
-      expect(@recipient.activities.first.decorate.activity_message).to eq("#{ @sender.first_name } offers friendship.")
+      expect(@recipient.activities.first.decorate.activity_message).to eq("#{ @sender.first_name } sent you a friend request.")
     end
 
     it 'provides correct activity message for recipient when friendship is acknowledged' do
       @friendship.accept
-      expect(@recipient.activities.first.decorate.activity_message).to eq("You accepted #{ @sender.first_name } friendship.")
+      expect(@recipient.activities.first.decorate.activity_message).to eq("You became friends with #{ @sender.first_name }.")
     end
   end
 end
