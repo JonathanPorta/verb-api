@@ -26,3 +26,7 @@ bundle exec rake db:setup # setup the database
 bundle exec rails server # start the server
 # visit http://localhost:3000
 ```
+
+Docker
+------
+Docker image: https://registry.hub.docker.com/u/jonathanporta/verb-api/
