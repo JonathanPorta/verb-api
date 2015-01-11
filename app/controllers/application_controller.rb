@@ -5,6 +5,14 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def access_token
+    request.headers['HTTP_ACCESS_TOKEN']
+  end
+
+  def api_version
+    request.headers['HTTP_API_VERSION']
+  end
+
   def current_user
     # logger.debug request.headers.inspect
     logger.debug request.headers['HTTP_ACCESS_TOKEN']
@@ -12,7 +20,7 @@ class ApplicationController < ActionController::Base
     if session[:user_id]
       logger.warn 'Getting user because the session had a user_id.'
       @current_user ||= User.find(session[:user_id]) if session[:user_id]
-    elsif request.headers['HTTP_ACCESS_TOKEN']
+    elsif access_token
       logger.warn 'Getting user because request had an access token.'
       @urrent_user ||= User.find_by_access_token request.headers['HTTP_ACCESS_TOKEN']
     end
@@ -23,5 +31,16 @@ class ApplicationController < ActionController::Base
     redirect_to '/logout'
   end
 
+  def require_authentication
+    unless current_user
+      unauthorized
+    end
+  end
+
+  def unauthorized
+    render nothing: true, status: 401
+  end
+
   helper_method :current_user
+  before_filter :require_authentication
 end

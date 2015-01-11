@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  skip_before_action :require_authentication, only: [:create]
+
   def create
     logger.debug env['omniauth.auth']
     user = User.from_omniauth env['omniauth.auth']
