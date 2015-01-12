@@ -20,6 +20,10 @@ require 'rails_helper'
 
 RSpec.describe AuthProvidersController, type: :controller do
 
+  before :each do
+    @user = FactoryGirl.create :user
+  end
+
   # This should return the minimal set of attributes required to create a valid
   # AuthProvider. As you add validations to AuthProvider, be sure to
   # adjust the attributes here as well.
@@ -30,7 +34,7 @@ RSpec.describe AuthProvidersController, type: :controller do
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # AuthProvidersController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) { { user_id: @user.id } }
 
   describe 'GET index' do
     it 'assigns all auth_providers as @auth_providers' do

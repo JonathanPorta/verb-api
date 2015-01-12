@@ -77,4 +77,17 @@ RSpec.describe User, type: :model do
       expect(@user.friends.first).to eq(@friend)
     end
   end
+
+  describe 'User authentication' do
+    before :each do
+      @user = FactoryGirl.create :user
+      @email = @user.email
+      @password = @user.password
+    end
+
+    it 'Should authenticate a user and return a model' do
+      user = User.authenticate @email, @password
+      expect(user).to eq(@user)
+    end
+  end
 end
