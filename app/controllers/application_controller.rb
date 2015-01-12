@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   private
 
   def access_token
+    logger.debug request.headers['HTTP_ACCESS_TOKEN']
     request.headers['HTTP_ACCESS_TOKEN']
   end
 
@@ -14,15 +15,12 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    # logger.debug request.headers.inspect
-    logger.debug request.headers['HTTP_ACCESS_TOKEN']
-    # logger.debug request.headers['access_token']
     if session[:user_id]
       logger.warn 'Getting user because the session had a user_id.'
       @current_user ||= User.find(session[:user_id]) if session[:user_id]
     elsif access_token
       logger.warn 'Getting user because request had an access token.'
-      @urrent_user ||= User.find_by_access_token request.headers['HTTP_ACCESS_TOKEN']
+      @current_user ||= User.find_by_access_token access_token
     end
 
   rescue ActiveRecord::RecordNotFound => e
@@ -32,9 +30,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_authentication
-    unless current_user
-      unauthorized
-    end
+    unauthorized unless current_user
   end
 
   def unauthorized
@@ -42,5 +38,5 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :current_user
-  before_filter :require_authentication
+  before_action :require_authentication
 end

@@ -20,12 +20,12 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'sessions#show', format: 'json'
   get 'me', to: 'sessions#show', format: 'json'
+  get 'user' => 'sessions#show', format: 'json'
+  post 'users' => 'users#create', format: 'json'
 
   match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
   match 'auth/failure', to: redirect('/'), via: [:get, :post]
   match 'logout', to: 'sessions#destroy', as: 'logout', via: [:get, :post]
-
-  get 'user' => 'sessions#show', format: 'json'
 
   get 'messages', to: redirect('activities')
   get 'messages/sent' => 'messages#sent'

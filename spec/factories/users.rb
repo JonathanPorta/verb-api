@@ -6,6 +6,7 @@ FactoryGirl.define do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     birthday { Faker::Business.credit_card_expiry_date }
+    password 'password'
 
     factory :user_with_facebook_auth do
       after(:create) do |user|

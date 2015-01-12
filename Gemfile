@@ -21,6 +21,7 @@ gem 'omniauth-facebook-access-token','0.1.6'
 gem 'koala'
 gem 'apns'
 gem 'librato-rails'
+gem 'bcrypt-ruby', require: 'bcrypt'
 
 gem 'draper', '1.3.1'
 gem 'verbs', '2.1.4'
