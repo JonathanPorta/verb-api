@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  before_create :generate_api_token
+
   has_many :devices
   has_many :activities
   has_many :messages
@@ -14,17 +16,12 @@ class User < ActiveRecord::Base
   validates :id, absence: true, on: :create
   validates :email, :first_name, :last_name, presence: true
   validates :email, uniqueness: true
+  validates :api_token, uniqueness: true
 
   has_secure_password validations: false
 
   after_save do
     Librato.measure 'users.count', User.count, sporadic: true
-  end
-
-  def self.find_by_access_token(token)
-    # TODO: Fix this when verb authprovider gets implemented
-    auth_provider = AuthProvider.where(provider: 'facebook', token: token).first
-    auth_provider.user if auth_provider
   end
 
   def self.from_omniauth(auth)
@@ -48,6 +45,15 @@ class User < ActiveRecord::Base
 
   def self.authenticate(email, password)
     User.find_by(email: email).try :authenticate, password
+  end
+
+  def self.authenticate_by_api_token(api_token)
+    User.find_by api_token: api_token
+  end
+
+  def self.authenticate_by_auth_provider(provider, token)
+    auth_provider = AuthProvider.where(provider: provider, token: token).first
+    auth_provider.user if auth_provider
   end
 
   def self.from_facebook(user_hash)
@@ -78,5 +84,14 @@ class User < ActiveRecord::Base
 
   def friendship_requests_received
     inverse_friendships.where approved: nil
+  end
+
+  private
+
+  def generate_api_token
+    self.api_token ||= loop do
+      random_token = SecureRandom.urlsafe_base64(15).tr('lIO0', 'sxyz')
+      break random_token unless self.class.exists?(api_token: random_token)
+    end
   end
 end

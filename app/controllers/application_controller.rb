@@ -1,13 +1,14 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :null_session
+  before_action :require_authentication
+  # protect_from_forgery with: :null_session
 
   private
 
-  def access_token
-    logger.debug request.headers['HTTP_ACCESS_TOKEN']
-    request.headers['HTTP_ACCESS_TOKEN']
+  def api_token
+    logger.debug request.headers['HTTP_API_TOKEN']
+    request.headers['HTTP_API_TOKEN']
   end
 
   def api_version
@@ -18,9 +19,9 @@ class ApplicationController < ActionController::Base
     if session[:user_id]
       logger.warn 'Getting user because the session had a user_id.'
       @current_user ||= User.find(session[:user_id]) if session[:user_id]
-    elsif access_token
+    elsif api_token
       logger.warn 'Getting user because request had an access token.'
-      @current_user ||= User.find_by_access_token access_token
+      @current_user ||= User.authenticate_by_api_token api_token
     end
 
   rescue ActiveRecord::RecordNotFound => e
@@ -38,5 +39,4 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :current_user
-  before_action :require_authentication
 end
