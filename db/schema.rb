@@ -77,8 +77,7 @@ ActiveRecord::Schema.define(version: 20150112014931) do
     t.string   "birthday"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "password_hash"
-    t.string   "password_salt"
+    t.string   "password_digest"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

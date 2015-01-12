@@ -89,13 +89,5 @@ RSpec.describe User, type: :model do
       user = User.authenticate @email, @password
       expect(user).to eq(@user)
     end
-
-    it 'Should hash the user\'s password' do
-      user = User.authenticate @email, @password
-      expect(user).to eq(@user)
-      expect(user.password).to be_nil
-      expect(user.password_hash).to be_truthy
-      expect(user.password_salt).to be_truthy
-    end
   end
 end
