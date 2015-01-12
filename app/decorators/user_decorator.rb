@@ -1,5 +1,5 @@
 class UserDecorator < Draper::Decorator
-  delegate :id, :first_name, :last_name, :email
+  delegate :id, :first_name, :last_name, :email, :birthday, :api_token
 
   def relationship(friend)
     relationship = Friendship.any_friendships object, friend
