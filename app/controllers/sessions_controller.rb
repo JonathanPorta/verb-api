@@ -18,6 +18,8 @@ class SessionsController < ApplicationController
 
   # GET /logout
   def destroy
+    # TODO: Probably not how we want to handle this, but it will work for now.
+    current_user.regenerate_api_token
     current_session nil
     redirect_to root_url
   end

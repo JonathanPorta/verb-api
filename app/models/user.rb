@@ -86,10 +86,15 @@ class User < ActiveRecord::Base
     inverse_friendships.where approved: nil
   end
 
+  def regenerate_api_token
+    generate_api_token
+    save
+  end
+
   private
 
   def generate_api_token
-    self.api_token ||= loop do
+    self.api_token = loop do
       random_token = SecureRandom.urlsafe_base64(64).tr('lIO0', 'sxyz')
       break random_token unless self.class.exists?(api_token: random_token)
     end
