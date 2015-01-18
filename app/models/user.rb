@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  before_create :generate_api_token
+  before_save :generate_api_token
 
   has_many :devices
   has_many :activities
@@ -16,7 +16,6 @@ class User < ActiveRecord::Base
   validates :id, absence: true, on: :create
   validates :email, :first_name, :last_name, presence: true
   validates :email, uniqueness: true
-  validates :api_token, uniqueness: true
 
   has_secure_password validations: false
 
